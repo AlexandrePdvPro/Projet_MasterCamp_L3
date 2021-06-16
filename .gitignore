@@ -1,2 +1,8 @@
 
-server/src/orm.config.ts
+/server/src/orm.config.ts
+/server/.idea
+/client/.idea
+/server/dist
+/server/node_modules
+/client/dist
+/client/node_modules
