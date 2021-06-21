@@ -3,23 +3,10 @@
     <div class="hero-body">
       <div class="container has-text-centered">
         <div class="column is-4 is-offset-4">
-          <h3 class="title has-text-black">S'enregistrer</h3>
+          <h3 class="title has-text-black">Se connecter</h3>
           <hr class="login-hr">
           <div class="box">
             <form action="">
-              <div class="field">
-                <label class="label">Nom</label>
-                <div class="control has-icons-left has-icons-right">
-                  <input class="input" type="text" placeholder="Nom" required>
-                </div>
-              </div>
-
-              <div class="field">
-                <label class="label">Prenom</label>
-                <div class="control has-icons-left has-icons-right">
-                  <input class="input" type="text" placeholder="Prenom" required>
-                </div>
-              </div>
 
               <div class="field">
                 <label class="label">Email</label>
@@ -29,24 +16,15 @@
               </div>
 
               <div class="field">
-                <label class="label">Numéro d'identité</label>
+                <label class="label">Mot de passe</label>
                 <div class="control has-icons-left has-icons-right">
-                  <input class="input" type="text" placeholder="Identité" required>
-                </div>
-              </div>
-
-              <div class="field">
-                <div class="control">
-                  <label class="checkbox">
-                    <input type="checkbox"  required/>
-                    J'accepte les <a href="#">conditions d'utilisation</a>
-                  </label>
+                  <input class="input" type="text" placeholder="Mot de passe" required>
                 </div>
               </div>
 
               <div class="field is-grouped">
                 <div class="control">
-                  <button class="button is-link">S'enregistrer</button>
+                  <button class="button is-link">Se connecter</button>
                 </div>
                 <div class="control">
                   <button class="button is-link is-light">Annuler</button>
@@ -55,7 +33,7 @@
             </form>
           </div>
           <p class="has-text-grey">
-            <router-link to="/Login">Se connecter </router-link> &nbsp;·&nbsp;
+            <router-link to="/Register">S'enregistrer</router-link> &nbsp;·&nbsp;
             <router-link  to="/">Mot de passe oublié ?</router-link>
           </p>
         </div>
@@ -68,7 +46,7 @@
 import { defineComponent } from "vue";
 
 export default defineComponent({
-  name: "RForm"
+  name: "Clogin"
 })
 </script>
 
