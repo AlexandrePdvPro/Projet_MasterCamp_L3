@@ -46,7 +46,7 @@
         <div class="navbar-item">
           <div class="buttons">
             <router-link class="button is-link" to="/Register">S'enregistrer</router-link>
-            <a class="button is-light"> Log in </a>
+            <router-link class="button is-white" to="/Login">Se connecter</router-link>
           </div>
         </div>
       </div>
