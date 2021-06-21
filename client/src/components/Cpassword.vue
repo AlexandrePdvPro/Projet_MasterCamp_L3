@@ -3,12 +3,15 @@
     <div class="hero-body">
       <div class="container has-text-centered">
         <div class="column is-4 is-offset-4">
-          <h3 class="title has-text-black">Se connecter</h3>
+          <h3 class="title has-text-black">Réinitialiser le mot de passe</h3>
           <hr class="login-hr" />
           <div class="box">
+            <p>
+              Veuillez saisir l'adresse email de votre compte. Si celle ci est
+              enregistrée, vous recevrez un mail de réinitialisation
+            </p>
             <form action="">
               <div class="field">
-                <label class="label">Email</label>
                 <div class="control has-icons-left has-icons-right">
                   <input
                     class="input"
@@ -19,21 +22,9 @@
                 </div>
               </div>
 
-              <div class="field">
-                <label class="label">Mot de passe</label>
-                <div class="control has-icons-left has-icons-right">
-                  <input
-                    class="input"
-                    type="text"
-                    placeholder="Mot de passe"
-                    required
-                  />
-                </div>
-              </div>
-
               <div class="field is-grouped">
                 <div class="control">
-                  <button class="button is-link">Se connecter</button>
+                  <button class="button is-link">Envoyer l'email</button>
                 </div>
                 <div class="control">
                   <button class="button is-link is-light">Annuler</button>
@@ -41,13 +32,6 @@
               </div>
             </form>
           </div>
-          <p class="has-text-grey">
-            <router-link to="/Register">S'enregistrer</router-link>
-            &nbsp;·&nbsp;
-            <router-link to="/reset-password"
-              >Mot de passe oublié ?</router-link
-            >
-          </p>
         </div>
       </div>
     </div>
@@ -58,7 +42,7 @@
 import { defineComponent } from "vue";
 
 export default defineComponent({
-  name: "Clogin",
+  name: "Cpassword",
 });
 </script>
 
