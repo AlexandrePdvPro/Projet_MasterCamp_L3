@@ -1,15 +1,16 @@
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
-import { User } from './entity/user.entity';
-import { Vote } from './entity/vote.entity';
+import { UserEntity } from './users/entity/user.entity';
+import { Vote } from './votes/entity/vote.entity';
+import * as dotenv from 'dotenv';
+dotenv.config();
 
-const { DB_NAME, DB_HOST, DB_PORT, DB_USER, DB_PASSWORD } = process.env;
 export const config: TypeOrmModuleOptions = {
   type: 'postgres',
   username: 'postgres',
   password: 'abcd1234',
-  port: 5432,
-  host: '127.0.0.1',
-  database: 'Projet_MasterCamp_L3',
-  synchronize: false,
-  entities: [User, Vote],
+  port: parseInt(process.env.DB_PORT),
+  host: process.env.DB_HOST,
+  database: process.env.DB_NAME,
+  synchronize: true,
+  entities: [UserEntity, Vote],
 };

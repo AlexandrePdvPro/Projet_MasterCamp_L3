@@ -1,37 +1,36 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { createConnection, getRepository, Repository } from 'typeorm';
-import { User } from '../entity/user.entity';
+import { Repository } from 'typeorm';
+import { UserEntity } from './entity/user.entity';
 import 'reflect-metadata';
 
 @Injectable()
 export class UsersService {
   constructor(
-    @InjectRepository(User)
-    private usersRepository: Repository<User>,
+    @InjectRepository(UserEntity)
+    private usersRepository: Repository<UserEntity>,
   ) {}
 
-  async getAllUsers(): Promise<User[]> {
-    return await User.find();
+  async findAll(): Promise<UserEntity[]> {
+    console.log('calling usersRepository...');
+    return await this.usersRepository.find();
   }
 
-  async getOne(user: any): Promise<User> {
-    return await User.findOne(user.user_id);
+  async findOne(id: number): Promise<UserEntity> {
+    console.log('findOne...');
+    return await this.usersRepository.findOne(id);
   }
 
-  /*findAll(): Promise<User[]> {
-    return this.usersRepository.find();
+  async getAllUsers(): Promise<UserEntity[]> {
+    console.log('getAll...');
+    return await UserEntity.find();
   }
 
-  findOne(numero_identite: string): Promise<User> {
-    const user = this.usersRepository
-      .createQueryBuilder('user')
-      .where('user.numero_identite = :numero_identite', {
-        numero_identite: numero_identite,
-      })
-      .getOne();
-    return user;
-  }*/
+  async getOne(user: any): Promise<UserEntity> {
+    console.log('fetching...');
+    const fetchedUser = await UserEntity.findOne(user.user_id);
+    return fetchedUser;
+  }
 
   async remove(id: string): Promise<void> {
     await this.usersRepository.delete(id);

@@ -1,7 +1,7 @@
 import { UsersService } from '../users/users.service';
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { User } from '../entity/user.entity';
+import { UserEntity } from '../users/entity/user.entity';
 
 @Injectable()
 export class AuthService {
@@ -10,17 +10,15 @@ export class AuthService {
     private jwtService: JwtService,
   ) {}
 
-  async validateUser(numero_identite: string, pass: string): Promise<any> {
+  async validateUser(user_id: number, pass: string): Promise<any> {
     console.log('checking user credentials...');
-    const users = await this.usersService.getAllUsers();
-    const user = new User();
-    for (let i = 0; i <= users.length; i++) {
-      if (users[i] && users[i].password === pass) {
-        console.log('Comparing password...');
-        const { password, ...result } = user;
-        console.log('User authenticated');
-        return result;
-      }
+    const user = await this.usersService.findOne(user_id);
+    console.log('user: ', user);
+    if (user && user.password === pass) {
+      console.log('Comparing password...');
+      const { password, ...result } = user;
+      console.log('User authenticated');
+      return result;
     }
     console.log('échec');
     return null;
@@ -35,5 +33,11 @@ export class AuthService {
     return {
       access_token: this.jwtService.sign(payload),
     };
+  }
+
+  getUser(): Promise<UserEntity> {
+    console.log('Calling usersService on auth.service...');
+    const res = this.usersService.findAll()[0];
+    return res;
   }
 }
