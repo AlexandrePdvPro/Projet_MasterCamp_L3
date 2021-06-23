@@ -1,12 +1,4 @@
-import {
-  Controller,
-  Request,
-  Post,
-  UseGuards,
-  Get,
-  Req,
-  Put,
-} from '@nestjs/common';
+import { Controller, Request, Post, UseGuards, Get, Put } from '@nestjs/common';
 import { LocalAuthGuard } from './auth/local-auth.guard';
 import { JwtAuthGuard } from './auth/jwt-auth.guard';
 import { AuthService } from './auth/auth.service';
@@ -34,9 +26,9 @@ export class AppController {
   }
 
   @Put('add/user')
-  addUser(@Request() req) {
+  async addUser(@Request() req) {
     console.log('req.query: ', req.query);
     console.log('calling authService in app.controller...');
-    const res = this.authService.addUser(req.query);
+    await this.authService.addUser(req.query);
   }
 }

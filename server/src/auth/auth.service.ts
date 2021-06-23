@@ -41,10 +41,10 @@ export class AuthService {
     return res;
   }
 
-  addUser(user: any): Promise<any> {
+  async addUser(user: any): Promise<void> {
     console.log('auth.service    user: ', user);
     console.log('Calling usersService on auth.service...');
-    return this.usersService.addOne(user);
+    await this.usersService.addOne(user);
   }
 
   async comparePwd(password: string, hashedPassword: string) {

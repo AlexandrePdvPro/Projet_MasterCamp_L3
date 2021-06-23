@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { getConnection, getRepository, Repository } from 'typeorm';
 import { UserEntity } from './entity/user.entity';
 import 'reflect-metadata';
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const bcrypt = require('bcrypt');
 
 @Injectable()
@@ -37,10 +38,10 @@ export class UsersService {
     await this.usersRepository.delete(id);
   }
 
-  async addOne(user: any): Promise<any> {
+  async addOne(user: any): Promise<void> {
     console.log('users.service    user: ', user);
-    await getRepository(UserEntity)
-      .createQueryBuilder('user')
+    await getConnection()
+      .createQueryBuilder()
       .insert()
       .into(UserEntity)
       .values([
