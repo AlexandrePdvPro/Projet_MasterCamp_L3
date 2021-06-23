@@ -2,6 +2,7 @@ import { UsersService } from '../users/users.service';
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { UserEntity } from '../users/entity/user.entity';
+import bcrypt = require('bcrypt');
 
 @Injectable()
 export class AuthService {
@@ -14,11 +15,10 @@ export class AuthService {
     console.log('checking user credentials...');
     const user = await this.usersService.findOne(user_id);
     console.log('user: ', user);
-    if (user && user.password === pass) {
+    if (user && this.comparePwd(pass, user.password)) {
       console.log('Comparing password...');
-      const { password, ...result } = user;
       console.log('User authenticated');
-      return result;
+      return user;
     }
     console.log('échec');
     return null;
@@ -26,7 +26,7 @@ export class AuthService {
 
   async login(user: any) {
     const payload = {
-      numero_identite: user.numero_identite,
+      password: user.password,
       sub: user.user_id,
     };
     console.log('Sending jwt to sign()');
@@ -39,5 +39,15 @@ export class AuthService {
     console.log('Calling usersService on auth.service...');
     const res = this.usersService.findAll()[0];
     return res;
+  }
+
+  addUser(user: any): Promise<any> {
+    console.log('auth.service    user: ', user);
+    console.log('Calling usersService on auth.service...');
+    return this.usersService.addOne(user);
+  }
+
+  async comparePwd(password: string, hashedPassword: string) {
+    const validPassword = await bcrypt.compare(password, hashedPassword);
   }
 }

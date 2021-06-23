@@ -1,4 +1,12 @@
-import { Controller, Request, Post, UseGuards, Get, Req } from '@nestjs/common';
+import {
+  Controller,
+  Request,
+  Post,
+  UseGuards,
+  Get,
+  Req,
+  Put,
+} from '@nestjs/common';
 import { LocalAuthGuard } from './auth/local-auth.guard';
 import { JwtAuthGuard } from './auth/jwt-auth.guard';
 import { AuthService } from './auth/auth.service';
@@ -23,5 +31,12 @@ export class AppController {
   getTest(@Request() req) {
     console.log('calling authService in app.controller...');
     return this.authService.getUser();
+  }
+
+  @Put('add/user')
+  addUser(@Request() req) {
+    console.log('req.query: ', req.query);
+    console.log('calling authService in app.controller...');
+    const res = this.authService.addUser(req.query);
   }
 }

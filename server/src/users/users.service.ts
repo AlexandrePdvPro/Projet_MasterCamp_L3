@@ -1,8 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { getConnection, getRepository, Repository } from 'typeorm';
 import { UserEntity } from './entity/user.entity';
 import 'reflect-metadata';
+const bcrypt = require('bcrypt');
 
 @Injectable()
 export class UsersService {
@@ -34,5 +35,29 @@ export class UsersService {
 
   async remove(id: string): Promise<void> {
     await this.usersRepository.delete(id);
+  }
+
+  async addOne(user: any): Promise<any> {
+    console.log('users.service    user: ', user);
+    await getRepository(UserEntity)
+      .createQueryBuilder('user')
+      .insert()
+      .into(UserEntity)
+      .values([
+        {
+          nom: user.nom,
+          prenom: user.prenom,
+          numero_identite: user.numero_identite,
+          password: await this.hashIt(user.password),
+        },
+      ])
+      .execute();
+    console.log('User added');
+  }
+
+  async hashIt(password: string): Promise<string> {
+    const salt = await bcrypt.genSalt(6);
+    const hashed = await bcrypt.hash(password, salt);
+    return hashed;
   }
 }

@@ -11,6 +11,6 @@ export const config: TypeOrmModuleOptions = {
   port: parseInt(process.env.DB_PORT),
   host: process.env.DB_HOST,
   database: process.env.DB_NAME,
-  synchronize: true,
+  synchronize: false,
   entities: [UserEntity, Vote],
 };
