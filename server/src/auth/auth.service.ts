@@ -35,16 +35,17 @@ export class AuthService {
     };
   }
 
-  getUser(): Promise<UserEntity> {
+  getUsers(): Promise<UserEntity[]> {
     console.log('Calling usersService on auth.service...');
-    const res = this.usersService.findAll()[0];
+    const res = this.usersService.findAll();
     return res;
   }
 
   async addUser(user: any): Promise<void> {
     console.log('auth.service    user: ', user);
     console.log('Calling usersService on auth.service...');
-    await this.usersService.addOne(user);
+    const res = await this.usersService.addOne(user);
+    console.log('auth.service    res: ', res);
   }
 
   async comparePwd(password: string, hashedPassword: string) {

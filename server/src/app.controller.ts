@@ -22,7 +22,7 @@ export class AppController {
   @Get('test')
   getTest(@Request() req) {
     console.log('calling authService in app.controller...');
-    return this.authService.getUser();
+    return this.authService.getUsers();
   }
 
   @Put('add/user')

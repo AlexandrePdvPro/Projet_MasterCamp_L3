@@ -13,14 +13,14 @@ export class UsersService {
     private usersRepository: Repository<UserEntity>,
   ) {}
 
-  async findAll(): Promise<UserEntity[]> {
+  findAll(): Promise<UserEntity[]> {
     console.log('calling usersRepository...');
-    return await this.usersRepository.find();
+    return this.usersRepository.find();
   }
 
-  async findOne(id: number): Promise<UserEntity> {
+  findOne(id: number): Promise<UserEntity> {
     console.log('findOne...');
-    return await this.usersRepository.findOne(id);
+    return this.usersRepository.findOne(id);
   }
 
   async getAllUsers(): Promise<UserEntity[]> {
@@ -46,10 +46,11 @@ export class UsersService {
       .into(UserEntity)
       .values([
         {
-          nom: user.nom,
-          prenom: user.prenom,
-          numero_identite: user.numero_identite,
+          nom: await user.nom,
+          prenom: await user.prenom,
+          numero_identite: await user.numero_identite,
           password: await this.hashIt(user.password),
+          admin: false,
         },
       ])
       .execute();
