@@ -13,6 +13,8 @@ Pour la sécurisation des données, nous utilisons la blockchain d'Ethereum via 
 
 ### Installation du client
 
+```$ cd client```
+
 ```$ npm install```
 
 #### Compiler et lancer la version dev
@@ -25,6 +27,8 @@ Pour la sécurisation des données, nous utilisons la blockchain d'Ethereum via 
 
 
 ### Installation du serveur
+
+```$ cd server```
 
 ```$ npm install```
 
