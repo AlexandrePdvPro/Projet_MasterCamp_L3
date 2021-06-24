@@ -54,10 +54,10 @@
   </section>
 </template>
 
-<script>
+<script lang="ts">
 import { defineComponent } from "vue";
 import axios from "axios";
-import { server } from "@/helper.js";
+import { server } from '../helper'
 import router from "../router";
 
 export default defineComponent({
@@ -75,8 +75,8 @@ export default defineComponent({
     }
 
     const __submitToServer = function (data: any) {
-      axios.post(`${server.baseURL}/users/create`, data).then(data => {
-        router.push({ name: "home" });
+      axios.post(`${server.baseURL}/api/auth/login`, data).then(data => {
+        router.push({ name: "Home" });
       });
     }
 

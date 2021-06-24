@@ -1,7 +1,8 @@
 import { UsersService } from '../users/users.service';
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { User } from '../entity/user.entity';
+import { UserEntity } from '../users/entity/user.entity';
+import bcrypt = require('bcrypt');
 
 @Injectable()
 export class AuthService {
@@ -10,17 +11,14 @@ export class AuthService {
     private jwtService: JwtService,
   ) {}
 
-  async validateUser(numero_identite: string, pass: string): Promise<any> {
+  async validateUser(email: string, pass: string): Promise<any> {
     console.log('checking user credentials...');
-    const users = await this.usersService.getAllUsers();
-    const user = new User();
-    for (let i = 0; i <= users.length; i++) {
-      if (users[i] && users[i].password === pass) {
-        console.log('Comparing password...');
-        const { password, ...result } = user;
-        console.log('User authenticated');
-        return result;
-      }
+    const user = await this.usersService.findOne(email);
+    console.log('user: ', user);
+    if (user && this.comparePwd(pass, user.password)) {
+      console.log('Comparing password...');
+      console.log('User authenticated');
+      return user;
     }
     console.log('échec');
     return null;
@@ -28,12 +26,29 @@ export class AuthService {
 
   async login(user: any) {
     const payload = {
-      numero_identite: user.numero_identite,
-      sub: user.user_id,
+      password: user.password,
+      sub: user.email,
     };
     console.log('Sending jwt to sign()');
     return {
       access_token: this.jwtService.sign(payload),
     };
+  }
+
+  getUsers(): Promise<UserEntity[]> {
+    console.log('Calling usersService on auth.service...');
+    const res = this.usersService.findAll();
+    return res;
+  }
+
+  async addUser(user: any): Promise<void> {
+    console.log('auth.service    user: ', user);
+    console.log('Calling usersService on auth.service...');
+    const res = await this.usersService.addOne(user);
+    console.log('auth.service    res: ', res);
+  }
+
+  async comparePwd(password: string, hashedPassword: string) {
+    const validPassword = await bcrypt.compare(password, hashedPassword);
   }
 }

@@ -118,7 +118,7 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import axios from "axios";
-import { server } from "@/helper.js";
+import { server } from '../helper'
 import router from "../router";
 
 export default defineComponent({

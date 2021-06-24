@@ -1,39 +1,65 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { createConnection, getRepository, Repository } from 'typeorm';
-import { User } from '../entity/user.entity';
+import { getConnection, getRepository, Repository } from 'typeorm';
+import { UserEntity } from './entity/user.entity';
 import 'reflect-metadata';
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const bcrypt = require('bcrypt');
 
 @Injectable()
 export class UsersService {
   constructor(
-    @InjectRepository(User)
-    private usersRepository: Repository<User>,
+    @InjectRepository(UserEntity)
+    private usersRepository: Repository<UserEntity>,
   ) {}
 
-  async getAllUsers(): Promise<User[]> {
-    return await User.find();
-  }
-
-  async getOne(user: any): Promise<User> {
-    return await User.findOne(user.user_id);
-  }
-
-  /*findAll(): Promise<User[]> {
+  findAll(): Promise<UserEntity[]> {
+    console.log('calling usersRepository...');
     return this.usersRepository.find();
   }
 
-  findOne(numero_identite: string): Promise<User> {
-    const user = this.usersRepository
-      .createQueryBuilder('user')
-      .where('user.numero_identite = :numero_identite', {
-        numero_identite: numero_identite,
-      })
-      .getOne();
-    return user;
-  }*/
+  findOne(email: string): Promise<UserEntity> {
+    console.log('findOne...');
+    return this.usersRepository.findOne(email);
+  }
+
+  async getAllUsers(): Promise<UserEntity[]> {
+    console.log('getAll...');
+    return await UserEntity.find();
+  }
+
+  async getOne(user: any): Promise<UserEntity> {
+    console.log('fetching...');
+    const fetchedUser = await UserEntity.findOne(user.user_id);
+    return fetchedUser;
+  }
 
   async remove(id: string): Promise<void> {
     await this.usersRepository.delete(id);
+  }
+
+  async addOne(user: any): Promise<void> {
+    console.log('users.service    user: ', user);
+    await getConnection()
+      .createQueryBuilder()
+      .insert()
+      .into(UserEntity)
+      .values([
+        {
+          nom: await user.nom,
+          prenom: await user.prenom,
+          numero_identite: await user.numero_identite,
+          password: await this.hashIt(user.password),
+          admin: false,
+        },
+      ])
+      .execute();
+    console.log('User added');
+  }
+
+  async hashIt(password: string): Promise<string> {
+    const salt = await bcrypt.genSalt(6);
+    const hashed = await bcrypt.hash(password, salt);
+    return hashed;
   }
 }
