@@ -12,6 +12,9 @@ export class UserEntity extends BaseEntity {
   prenom: string;
 
   @Column({ type: 'varchar', length: 100 })
+  email: string;
+
+  @Column({ type: 'varchar', length: 100 })
   numero_identite: string;
 
   @Column({ type: 'varchar', length: 100 })
