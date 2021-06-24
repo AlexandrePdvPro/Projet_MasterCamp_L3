@@ -1,5 +1,5 @@
 
-/server/src/orm.config.ts
+/server/src/ormconfig.json
 /server/.idea
 /client/.idea
 /server/dist
