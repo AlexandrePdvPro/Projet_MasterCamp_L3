@@ -6,7 +6,7 @@
           <h3 class="title has-text-black">Se connecter</h3>
           <hr class="login-hr" />
           <div class="box">
-            <form @submit.prevent="Login">
+            <form @submit.prevent="login()">
               <div class="field">
                 <label class="label">Email</label>
                 <div class="control has-icons-left has-icons-right">
@@ -14,6 +14,7 @@
                     class="input"
                     type="text"
                     placeholder="Email"
+                    v-model="email"
                     required
                   />
                 </div>
@@ -26,6 +27,7 @@
                     class="input"
                     type="text"
                     placeholder="Mot de passe"
+                    v-model="password"
                     required
                   />
                 </div>
@@ -33,7 +35,7 @@
 
               <div class="field is-grouped">
                 <div class="control">
-                  <button class="button is-link">Se connecter</button>
+                  <button class="button is-link" type="submit">Se connecter</button>
                 </div>
                 <div class="control">
                   <button class="button is-link is-light">Annuler</button>
@@ -66,22 +68,23 @@ export default defineComponent({
     let email: string;
     let password: string;
 
-    const Login = function () {
+    const login = function () {
       let customerData = {
         email: email,
         password: password,
       };
+      console.log('customerData: ', customerData);
       __submitToServer(customerData);
     }
 
     const __submitToServer = function (data: any) {
       axios.post(`${server.baseURL}/api/auth/login`, data).then(data => {
-        router.push({ name: "Home" });
+        router.push({ path: "/" });
       });
     }
 
     return{
-      Login,
+      login,
       __submitToServer,
     }
   }

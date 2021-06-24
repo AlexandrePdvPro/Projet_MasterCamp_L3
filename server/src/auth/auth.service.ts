@@ -13,9 +13,9 @@ export class AuthService {
 
   async validateUser(email: string, pass: string): Promise<any> {
     console.log('checking user credentials...');
-    const user = await this.usersService.findOne(email);
+    const user = this.usersService.findOne(email);
     console.log('user: ', user);
-    if (user && this.comparePwd(pass, user.password)) {
+    if (user && this.comparePwd(pass, (await user).password)) {
       console.log('Comparing password...');
       console.log('User authenticated');
       return user;
@@ -43,12 +43,11 @@ export class AuthService {
 
   async addUser(user: any): Promise<void> {
     console.log('auth.service    user: ', user);
-    console.log('Calling usersService on auth.service...');
     const res = await this.usersService.addOne(user);
-    console.log('auth.service    res: ', res);
   }
 
   async comparePwd(password: string, hashedPassword: string) {
     const validPassword = await bcrypt.compare(password, hashedPassword);
   }
 }
+

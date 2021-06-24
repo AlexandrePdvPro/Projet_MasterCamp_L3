@@ -27,8 +27,6 @@ export class AppController {
 
   @Put('add/user')
   async addUser(@Request() req) {
-    console.log('req.query: ', req.query);
-    console.log('calling authService in app.controller...');
-    await this.authService.addUser(req.query);
+    await this.authService.addUser(req.user);
   }
 }
