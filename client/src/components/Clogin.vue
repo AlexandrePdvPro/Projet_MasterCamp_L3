@@ -6,7 +6,7 @@
           <h3 class="title has-text-black">Se connecter</h3>
           <hr class="login-hr" />
           <div class="box">
-            <form action="">
+            <form @submit.prevent="Login">
               <div class="field">
                 <label class="label">Email</label>
                 <div class="control has-icons-left has-icons-right">
@@ -56,9 +56,35 @@
 
 <script>
 import { defineComponent } from "vue";
+import axios from "axios";
+import { server } from "@/helper.js";
+import router from "../router";
 
 export default defineComponent({
   name: "Clogin",
+  setup(props, ctx) {
+    let email: string;
+    let password: string;
+
+    const Login = function () {
+      let customerData = {
+        email: email,
+        password: password,
+      };
+      __submitToServer(customerData);
+    }
+
+    const __submitToServer = function (data: any) {
+      axios.post(`${server.baseURL}/users/create`, data).then(data => {
+        router.push({ name: "home" });
+      });
+    }
+
+    return{
+      Login,
+      __submitToServer,
+    }
+  }
 });
 </script>
 
