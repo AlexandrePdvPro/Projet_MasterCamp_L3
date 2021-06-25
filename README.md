@@ -13,6 +13,8 @@ Pour la sécurisation des données, nous utilisons la blockchain d'Ethereum via 
 
 ### Installation du client
 
+```$ cd client```
+
 ```$ npm install```
 
 #### Compiler et lancer la version dev
@@ -25,6 +27,8 @@ Pour la sécurisation des données, nous utilisons la blockchain d'Ethereum via 
 
 
 ### Installation du serveur
+
+```$ cd server```
 
 ```$ npm install```
 
@@ -42,4 +46,7 @@ Pour la sécurisation des données, nous utilisons la blockchain d'Ethereum via 
 
 ### Créer la base de données
 
-Modifier le script *create_bdd.sql* avec vos identifiants Postgres, puis l'exécuter
+- Créer un fichier ormconfig.json d'après le template ormconfig.template dans server/templates et le remplir avec vos
+informations de connexion postgres
+
+- Mettre "synchronize" sur **true** pour créer la base la première fois, puis le mettre sur **false**
