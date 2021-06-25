@@ -103,40 +103,38 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, reactive } from "vue";
 import axios from "axios";
 import { server } from '../helper'
 import router from "../router";
 
+interface newUser {
+  nom : string;
+  prenom: string;
+  email: string;
+  numero_id: string;
+  password: string;
+}
+
 export default defineComponent({
   name: "RForm",
-  setup(props, ctx) {
-    let nom: string;
-    let prenom: string;
-    let email: string;
-    let numero_id: string;
-    let password: string;
+  setup() {
 
     const Register = function () {
-      let customerData = {
-        first_name: nom,
-        last_name: prenom,
-        email: email,
-        num_id: numero_id,
-        password: password,
-      };
-      __submitToServer(customerData);
+      const customerData: newUser = reactive({nom: 'Test', prenom:'', email:'', numero_id: '', password:'' })
+      console.log(customerData)
+      submitToServer(customerData);
     }
 
-    const __submitToServer = function (data: any) {
+    const submitToServer = function (data: newUser) {
           axios.put(`${server.baseURL}/api/add/user`, data).then(data => {
-            router.push({ name: "home" });
+            router.push({ name: "Home" });
           });
     }
 
     return{
       Register,
-      __submitToServer,
+      submitToServer,
     }
   }
 });
