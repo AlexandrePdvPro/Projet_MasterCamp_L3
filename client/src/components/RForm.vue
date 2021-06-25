@@ -11,7 +11,7 @@
                 <label class="label">Nom</label>
                 <div class="control has-icons-left has-icons-right">
                   <input
-                    v-model="nom"
+                    v-model="customerData.nom"
                     class="input"
                     type="text"
                     placeholder="Nom"
@@ -24,7 +24,7 @@
                 <label class="label">Prenom</label>
                 <div class="control has-icons-left has-icons-right">
                   <input
-                    v-model="prenom"
+                    v-model="customerData.prenom"
                     class="input"
                     type="text"
                     placeholder="Prenom"
@@ -37,7 +37,7 @@
                 <label class="label">Email</label>
                 <div class="control has-icons-left has-icons-right">
                   <input
-                    v-model="email"
+                    v-model="customerData.email"
                     class="input"
                     type="text"
                     placeholder="Email"
@@ -50,7 +50,7 @@
                 <label class="label">Numéro d'identité</label>
                 <div class="control has-icons-left has-icons-right">
                   <input
-                    v-model="numero_id"
+                    v-model="customerData.numero_id"
                     class="input"
                     type="text"
                     placeholder="Identité"
@@ -63,7 +63,7 @@
                 <label class="label">Mot de passe</label>
                 <div class="control has-icons-left has-icons-right">
                   <input
-                    v-model="password"
+                    v-model="customerData.password"
                     class="input"
                     type="text"
                     placeholder="Mot de passe"
@@ -120,9 +120,10 @@ export default defineComponent({
   name: "RForm",
   setup() {
 
+    const customerData: newUser = reactive({nom:'', prenom:'', email:'', numero_id: '', password:'' })
+
     const Register = function () {
-      const customerData: newUser = reactive({nom: 'Test', prenom:'', email:'', numero_id: '', password:'' })
-      console.log(customerData)
+      console.log(customerData);
       submitToServer(customerData);
     }
 
@@ -135,6 +136,7 @@ export default defineComponent({
     return{
       Register,
       submitToServer,
+      customerData,
     }
   }
 });
