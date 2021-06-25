@@ -1,12 +1,10 @@
 <template>
 	<section class="hero is-primary is-fullheight">
 		<div class="hero-body">
-			<div class="container">
-				<div class="columns is-centered is-multiline">
-					<div class="column">Vote</div>
-					<div class="column"></div>
-					<div class="column"></div>
-				</div>
+			<div class="tile is-ancestor">
+				<CCandidat class="tile notification is-parent is-danger"></CCandidat>
+				<CCandidat class="tile notification is-parent is-danger"></CCandidat>
+				<CCandidat class="tile notification is-parent is-danger"></CCandidat>
 			</div>
 		</div>
 		<div class="hero-foot">Hello</div>
@@ -15,9 +13,13 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
+import CCandidat from "../components/CCandidat.vue";
 
 export default defineComponent({
 	name: "CVote",
+	components: {
+		CCandidat,
+	},
 });
 </script>
 
