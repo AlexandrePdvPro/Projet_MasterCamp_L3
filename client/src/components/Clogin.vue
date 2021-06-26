@@ -79,7 +79,7 @@ export default defineComponent({
       router.push({ name: "Home" });
     }
 
-    const __submitToServer = function (data: any) {
+    const __submitToServer = function (data: user) {
       axios.post(`${server.baseURL}/api/auth/login`, data).then(data => console.log('customerData: ', customerData));
     }
 
