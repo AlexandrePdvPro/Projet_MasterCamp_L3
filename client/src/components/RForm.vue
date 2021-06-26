@@ -125,12 +125,11 @@ export default defineComponent({
     const Register = function () {
       console.log(customerData);
       submitToServer(customerData);
+      router.push({ name: "Home" });
     }
 
     const submitToServer = function (data: newUser) {
-          axios.put(`${server.baseURL}/api/add/user`, data).then(data => {
-            router.push({ name: "Home" });
-          });
+          axios.put(`${server.baseURL}/api/add/user`, data).then(response => console.log(customerData) );
     }
 
     return{
