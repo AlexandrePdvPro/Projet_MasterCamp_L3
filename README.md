@@ -9,7 +9,7 @@ Il s'agit d'une application web réalisée avec Vue.js 3 côté client et Nest.j
 Pour la sécurisation des données, nous utilisons la blockchain d'Ethereum via le langage Solidity.
 
 
-##### *mettre nos noms*
+##### Equipe : Nicolas BATARDOT, Vincent PETIT, Alexandre PIEDVACHE, Timothé PREVOT, Marin VAN REMOORTEL
 
 ### Installation du client
 

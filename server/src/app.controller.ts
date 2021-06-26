@@ -27,6 +27,7 @@ export class AppController {
 
   @Put('add/user')
   async addUser(@Request() req) {
-    await this.authService.addUser(req.user);
+    console.log('req.body: ', req.body);
+    await this.authService.addUser(req.body);
   }
 }

@@ -1,7 +1,5 @@
 
 /server/ormconfig.json
-/server/.idea
-/client/.idea
 /server/dist
 /server/node_modules
 /client/dist
