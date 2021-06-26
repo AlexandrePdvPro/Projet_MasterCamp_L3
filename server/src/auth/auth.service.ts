@@ -35,19 +35,7 @@ export class AuthService {
     };
   }
 
-  getUsers(): Promise<UserEntity[]> {
-    console.log('Calling usersService on auth.service...');
-    const res = this.usersService.findAll();
-    return res;
-  }
-
-  async addUser(user: any): Promise<void> {
-    console.log('auth.service    user: ', user);
-    const res = await this.usersService.addOne(user);
-  }
-
   async comparePwd(password: string, hashedPassword: string) {
     const validPassword = await bcrypt.compare(password, hashedPassword);
   }
 }
-
