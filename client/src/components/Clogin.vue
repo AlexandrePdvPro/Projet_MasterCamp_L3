@@ -14,7 +14,7 @@
                     class="input"
                     type="text"
                     placeholder="Email"
-                    v-model="email"
+                    v-model="customerData.email"
                     required
                   />
                 </div>
@@ -27,7 +27,7 @@
                     class="input"
                     type="text"
                     placeholder="Mot de passe"
-                    v-model="password"
+                    v-model="customerData.password"
                     required
                   />
                 </div>
@@ -57,35 +57,36 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import {defineComponent, reactive} from "vue";
 import axios from "axios";
 import { server } from '../helper'
 import router from "../router";
 
+interface user {
+  email: string;
+  password: string
+}
+
 export default defineComponent({
   name: "Clogin",
   setup(props, ctx) {
-    let email: string;
-    let password: string;
+
+    const customerData: user = reactive({email:'', password:'' })
 
     const login = function () {
-      let customerData = {
-        email: email,
-        password: password,
-      };
       console.log('customerData: ', customerData);
       __submitToServer(customerData);
+      router.push({ name: "Home" });
     }
 
     const __submitToServer = function (data: any) {
-      axios.post(`${server.baseURL}/api/auth/login`, data).then(data => {
-        router.push({ path: "/" });
-      });
+      axios.post(`${server.baseURL}/api/auth/login`, data).then(data => console.log('customerData: ', customerData));
     }
 
     return{
       login,
       __submitToServer,
+      customerData,
     }
   }
 });
