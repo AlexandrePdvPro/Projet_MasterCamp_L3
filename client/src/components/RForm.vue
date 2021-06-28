@@ -11,7 +11,7 @@
                 <label class="label">Nom</label>
                 <div class="control has-icons-left has-icons-right">
                   <input
-                    v-model="nom"
+                    v-model="customerData.nom"
                     class="input"
                     type="text"
                     placeholder="Nom"
@@ -24,7 +24,7 @@
                 <label class="label">Prenom</label>
                 <div class="control has-icons-left has-icons-right">
                   <input
-                    v-model="prenom"
+                    v-model="customerData.prenom"
                     class="input"
                     type="text"
                     placeholder="Prenom"
@@ -37,7 +37,7 @@
                 <label class="label">Email</label>
                 <div class="control has-icons-left has-icons-right">
                   <input
-                    v-model="email"
+                    v-model="customerData.email"
                     class="input"
                     type="text"
                     placeholder="Email"
@@ -50,7 +50,7 @@
                 <label class="label">Numéro d'identité</label>
                 <div class="control has-icons-left has-icons-right">
                   <input
-                    v-model="numero_id"
+                    v-model="customerData.numero_id"
                     class="input"
                     type="text"
                     placeholder="Identité"
@@ -63,20 +63,7 @@
                 <label class="label">Mot de passe</label>
                 <div class="control has-icons-left has-icons-right">
                   <input
-                    v-model="password"
-                    class="input"
-                    type="text"
-                    placeholder="Mot de passe"
-                    required
-                  />
-                </div>
-              </div>
-
-              <div class="field">
-                <label class="label">Confirmer le mot de passe</label>
-                <div class="control has-icons-left has-icons-right">
-                  <input
-                    v-model="password"
+                    v-model="customerData.password"
                     class="input"
                     type="text"
                     placeholder="Mot de passe"
@@ -116,44 +103,39 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, reactive } from "vue";
 import axios from "axios";
-import { server } from "@/helper.js";
+import { server } from '../helper'
 import router from "../router";
+
+interface newUser {
+  nom : string;
+  prenom: string;
+  email: string;
+  numero_id: string;
+  password: string;
+}
 
 export default defineComponent({
   name: "RForm",
-  setup(props, ctx) {
-    let nom: string;
-    let prenom: string;
-    let email: string;
-    let id: number;
-    let numero_id: string;
-    let password: string;
-    let admin: boolean;
+  setup() {
+
+    const customerData: newUser = reactive({nom:'', prenom:'', email:'', numero_id: '', password:'' })
 
     const Register = function () {
-      let customerData = {
-        first_name: nom,
-        last_name: prenom,
-        email: email,
-        id: id,
-        num_id: numero_id,
-        password: password,
-        admin: admin,
-      };
-      __submitToServer(customerData);
+      console.log(customerData);
+      submitToServer(customerData);
+      router.push({ name: "Home" });
     }
 
-    const __submitToServer = function (data: any) {
-          axios.post(`${server.baseURL}/users/create`, data).then(data => {
-            router.push({ name: "home" });
-          });
+    const submitToServer = function (data: newUser) {
+          axios.put(`${server.baseURL}/api/add/user`, data).then(response => console.log(customerData) );
     }
 
     return{
       Register,
-      __submitToServer,
+      submitToServer,
+      customerData,
     }
   }
 });

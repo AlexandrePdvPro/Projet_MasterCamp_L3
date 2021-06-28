@@ -18,9 +18,11 @@ export class UsersService {
     return this.usersRepository.find();
   }
 
-  findOne(id: number): Promise<UserEntity> {
+  async findOne(email: string): Promise<UserEntity | undefined> {
     console.log('findOne...');
-    return this.usersRepository.findOne(id);
+    const user = this.usersRepository.findOne({ email });
+    console.log('user: ', user);
+    return user;
   }
 
   async getAllUsers(): Promise<UserEntity[]> {
@@ -48,8 +50,9 @@ export class UsersService {
         {
           nom: await user.nom,
           prenom: await user.prenom,
-          numero_identite: await user.numero_identite,
+          numero_identite: await user.numero_id,
           password: await this.hashIt(user.password),
+          email: await user.email,
           admin: false,
         },
       ])

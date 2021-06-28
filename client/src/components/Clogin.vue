@@ -6,7 +6,7 @@
           <h3 class="title has-text-black">Se connecter</h3>
           <hr class="login-hr" />
           <div class="box">
-            <form @submit.prevent="Login">
+            <form @submit.prevent="login()">
               <div class="field">
                 <label class="label">Email</label>
                 <div class="control has-icons-left has-icons-right">
@@ -14,6 +14,7 @@
                     class="input"
                     type="text"
                     placeholder="Email"
+                    v-model="customerData.email"
                     required
                   />
                 </div>
@@ -26,6 +27,7 @@
                     class="input"
                     type="text"
                     placeholder="Mot de passe"
+                    v-model="customerData.password"
                     required
                   />
                 </div>
@@ -33,7 +35,7 @@
 
               <div class="field is-grouped">
                 <div class="control">
-                  <button class="button is-link">Se connecter</button>
+                  <button class="button is-link" type="submit">Se connecter</button>
                 </div>
                 <div class="control">
                   <button class="button is-link is-light">Annuler</button>
@@ -54,35 +56,37 @@
   </section>
 </template>
 
-<script>
-import { defineComponent } from "vue";
+<script lang="ts">
+import {defineComponent, reactive} from "vue";
 import axios from "axios";
-import { server } from "@/helper.js";
+import { server } from '../helper'
 import router from "../router";
+
+interface user {
+  email: string;
+  password: string
+}
 
 export default defineComponent({
   name: "Clogin",
   setup(props, ctx) {
-    let email: string;
-    let password: string;
 
-    const Login = function () {
-      let customerData = {
-        email: email,
-        password: password,
-      };
+    const customerData: user = reactive({email:'', password:'' })
+
+    const login = function () {
+      console.log('customerData: ', customerData);
       __submitToServer(customerData);
+      router.push({ name: "Home" });
     }
 
-    const __submitToServer = function (data: any) {
-      axios.post(`${server.baseURL}/users/create`, data).then(data => {
-        router.push({ name: "home" });
-      });
+    const __submitToServer = function (data: user) {
+      axios.post(`${server.baseURL}/api/auth/login`, data).then(data => console.log('customerData: ', customerData));
     }
 
     return{
-      Login,
+      login,
       __submitToServer,
+      customerData,
     }
   }
 });

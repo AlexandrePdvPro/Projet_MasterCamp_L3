@@ -18,17 +18,4 @@ export class AppController {
   getProfile(@Request() req) {
     return req.user;
   }
-
-  @Get('test')
-  getTest(@Request() req) {
-    console.log('calling authService in app.controller...');
-    return this.authService.getUsers();
-  }
-
-  @Put('add/user')
-  async addUser(@Request() req) {
-    console.log('req.query: ', req.query);
-    console.log('calling authService in app.controller...');
-    await this.authService.addUser(req.query);
-  }
 }
