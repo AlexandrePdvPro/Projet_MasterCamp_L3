@@ -1,15 +1,17 @@
 <template>
-	<CHome></CHome>
+	<CVote></CVote>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import CHome from "@/components/CHome.vue";
+import CVote from "../components/CVote.vue";
 
 export default defineComponent({
-	name: "Home",
+	name: "Vote",
 	components: {
-		CHome,
+		CVote,
 	},
 });
 </script>
+
+<style scoped></style>
