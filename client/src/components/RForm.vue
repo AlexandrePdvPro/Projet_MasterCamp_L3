@@ -73,19 +73,6 @@
               </div>
 
               <div class="field">
-                <label class="label">Confirmer le mot de passe</label>
-                <div class="control has-icons-left has-icons-right">
-                  <input
-                    v-model="password"
-                    class="input"
-                    type="text"
-                    placeholder="Mot de passe"
-                    required
-                  />
-                </div>
-              </div>
-
-              <div class="field">
                 <div class="control">
                   <label class="checkbox">
                     <input type="checkbox" required />
@@ -118,7 +105,7 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import axios from "axios";
-import { server } from "@/helper.js";
+import { server } from '../helper'
 import router from "../router";
 
 export default defineComponent({
@@ -127,26 +114,22 @@ export default defineComponent({
     let nom: string;
     let prenom: string;
     let email: string;
-    let id: number;
     let numero_id: string;
     let password: string;
-    let admin: boolean;
 
     const Register = function () {
       let customerData = {
         first_name: nom,
         last_name: prenom,
         email: email,
-        id: id,
         num_id: numero_id,
         password: password,
-        admin: admin,
       };
       __submitToServer(customerData);
     }
 
     const __submitToServer = function (data: any) {
-          axios.post(`${server.baseURL}/users/create`, data).then(data => {
+          axios.put(`${server.baseURL}/api/add/user`, data).then(data => {
             router.push({ name: "home" });
           });
     }
