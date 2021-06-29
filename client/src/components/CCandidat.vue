@@ -2,19 +2,40 @@
 	<div class="custom-tile">
 		<div class="tile is-child">
 			<figure class="image">
-				<img src="../assets/logo.png" alt="Photo des candidats" />
+				<img :src="candidat.imgUrl" alt="Photo des candidats" />
 			</figure>
-			<p class="title">Nom du candidat - Parti du candidat</p>
+			<p class="title">{{ candidat.nom }} - {{ candidat.parti }}</p>
 			<button class="button is-link">Voter</button>
 		</div>
 	</div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, ref } from "vue";
+
+export class Candidat {
+	nom: string;
+	parti: string;
+	imgUrl: string;
+
+	constructor() {
+		this.nom = "";
+		this.parti = "";
+		this.imgUrl = "";
+	}
+}
 
 export default defineComponent({
 	name: "CCandidat",
+	props: {
+		candidat: { type: Candidat },
+	},
+	setup(props) {
+		const OCandidat = ref(0);
+		return {
+			OCandidat,
+		};
+	},
 });
 </script>
 
