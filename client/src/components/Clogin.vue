@@ -6,7 +6,7 @@
           <h3 class="title has-text-black">Se connecter</h3>
           <hr class="login-hr" />
           <div class="box">
-            <form @submit.prevent="login()">
+            <form @submit.prevent="login">
               <div class="field">
                 <label class="label">Email</label>
                 <div class="control has-icons-left has-icons-right">
@@ -28,6 +28,7 @@
                     type="text"
                     placeholder="Mot de passe"
                     v-model="customerData.password"
+                    @keyup.enter="login"
                     required
                   />
                 </div>
@@ -69,23 +70,26 @@ interface user {
 
 export default defineComponent({
   name: "Clogin",
-  setup(props, ctx) {
+  setup() {
 
     const customerData: user = reactive({email:'', password:'' })
 
     const login = function () {
       console.log('customerData: ', customerData);
-      __submitToServer(customerData);
+      submitToServer(customerData);
       router.push({ name: "Home" });
+      customerData.email = '';
+      customerData.password = ''
     }
 
-    const __submitToServer = function (data: user) {
-      axios.post(`${server.baseURL}/api/auth/login`, data).then(data => console.log('customerData: ', customerData));
+
+    const submitToServer = function (data: user) {
+      axios.post(`${server.baseURL}/api/auth/login`, data);
     }
 
     return{
       login,
-      __submitToServer,
+      submitToServer,
       customerData,
     }
   }

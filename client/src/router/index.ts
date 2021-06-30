@@ -3,6 +3,7 @@ import Home from "../views/Home.vue";
 import Register from "../views/Register.vue";
 import Login from "../views/Login.vue";
 import Password from "../views/Password.vue";
+import Panel from "../views/Panel.vue"
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -24,6 +25,11 @@ const routes: Array<RouteRecordRaw> = [
     path: "/reset-password",
     name: "Password",
     component: Password,
+  },
+  {
+    path: "/panel",
+    name: "Panel",
+    component: Panel,
   },
 ];
 
