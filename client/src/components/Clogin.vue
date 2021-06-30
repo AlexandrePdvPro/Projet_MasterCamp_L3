@@ -11,27 +11,50 @@
                 <label class="label">Email</label>
                 <div class="control has-icons-left has-icons-right">
                   <input
-                    class="input"
-                    type="text"
-                    placeholder="Email"
-                    v-model="customerData.email"
-                    required
+                      class="input"
+                      type="email"
+                      placeholder="Adresse email"
+                      @input="emailField.handleChange"
+                      @blur="emailField.handleBlur"
+                      :value="emailField.value"
                   />
                 </div>
+                <p
+                    class="has-text-danger"
+                    :style="{
+                      visibility:
+                        emailField.meta.touched && !emailField.meta.valid
+                          ? 'visible'
+                          : 'hidden',
+                    }"
+                >
+                  {{ emailField.errorMessage || 'Ce champ est requis' }}
+                </p>
               </div>
 
               <div class="field">
                 <label class="label">Mot de passe</label>
                 <div class="control has-icons-left has-icons-right">
                   <input
-                    class="input"
-                    type="text"
-                    placeholder="Mot de passe"
-                    v-model="customerData.password"
-                    @keyup.enter="login"
-                    required
+                      class="input"
+                      type="password"
+                      placeholder="Password"
+                      @input="passwordField.handleChange($event)"
+                      @blur="passwordField.handleBlur"
+                      :value="passwordField.value"
                   />
                 </div>
+                <p
+                    class="has-text-danger"
+                    :style="{
+                      visibility:
+                        passwordField.meta.touched && !passwordField.meta.valid
+                          ? 'visible'
+                          : 'hidden',
+                    }"
+                >
+                  {{ passwordField.errorMessage || 'Ce champ est requis' }}
+                </p>
               </div>
 
               <div class="field is-grouped">
@@ -58,7 +81,8 @@
 </template>
 
 <script lang="ts">
-import {defineComponent, reactive} from "vue";
+import {computed, defineComponent, reactive} from "vue";
+import {useField , useForm} from 'vee-validate';
 import axios from "axios";
 import { server } from '../helper'
 import router from "../router";
@@ -71,6 +95,16 @@ interface user {
 export default defineComponent({
   name: "Clogin",
   setup() {
+
+    const { meta: formMeta, handleSubmit } = useForm();
+    const emailField = reactive(useField('email', 'email'));
+    const passwordField = reactive(useField('password', 'password'));
+
+
+    const submitForm = handleSubmit((formValues) => {
+      console.log(formValues.email)
+      console.log(formValues.password)
+    });
 
     const customerData: user = reactive({email:'', password:'' })
 
@@ -91,6 +125,10 @@ export default defineComponent({
       login,
       submitToServer,
       customerData,
+      emailField,
+      passwordField,
+      submitForm,
+      formMeta,
     }
   }
 });
