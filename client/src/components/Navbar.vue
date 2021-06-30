@@ -95,7 +95,7 @@ document.addEventListener("DOMContentLoaded", () => {
 export default {
   name: "Navbar.vue",
   setup(){
-    let isConnected = true;
+    let isConnected = false;
 
     return{
       isConnected,
