@@ -36,8 +36,6 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import { useField } from "vee-validate";
-import * as yup from "yup";
 
 export default defineComponent({
   name: "Cpassword",

@@ -14,10 +14,10 @@ defineRule('password', (value: string) => {
         return true;
     }
 
-    return "Le mot de passe doit être compris entre 6 et caractères"
+    return "Le mot de passe doit être compris entre 6 et 15 caractères"
 });
 
-defineRule('confirmPassword', (value: string, [target]: any , ctx)=>{
+defineRule('confirmPassword', (value: string, [target]: any , ctx: any)=>{
     if(required(value) && value === ctx.form[target]){
         return true;
     }

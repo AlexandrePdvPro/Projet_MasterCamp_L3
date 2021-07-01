@@ -6,6 +6,7 @@
             src="https://bulma.io/images/bulma-logo.png"
             width="112"
             height="28"
+            alt=""
         />
       </a>
 
@@ -60,7 +61,7 @@
               <i class="fa fa-github"></i>
             </span>
           </router-link>
-          <router-link class="button is-link" to="/Login">Se déconnecter</router-link>
+          <router-link class="button is-link" to="/Login" @click="deconnexion">Se déconnecter</router-link>
         </div>
       </div>
     </div>
@@ -69,6 +70,9 @@
 </template>
 
 <script>
+import {useStore} from "vuex";
+import {computed} from "vue";
+
 document.addEventListener("DOMContentLoaded", () => {
   // Get all "navbar-burger" elements
   const $navbarBurgers = Array.prototype.slice.call(
@@ -95,10 +99,16 @@ document.addEventListener("DOMContentLoaded", () => {
 export default {
   name: "Navbar.vue",
   setup(){
-    let isConnected = false;
+    const store = useStore();
+    const isConnected = computed(()=>store.state.isConnected)
+
+    function deconnexion(){
+      store.commit('setIsConnected', false)
+    }
 
     return{
       isConnected,
+      deconnexion,
     }
   }
 }
