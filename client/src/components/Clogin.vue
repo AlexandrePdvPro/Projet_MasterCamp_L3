@@ -6,7 +6,7 @@
           <h3 class="title has-text-black">Se connecter</h3>
           <hr class="login-hr" />
           <div class="box">
-            <form @submit.prevent="login">
+            <form @submit.prevent="submitForm">
               <div class="field">
                 <label class="label">Email</label>
                 <div class="control has-icons-left has-icons-right">
@@ -59,7 +59,7 @@
 
               <div class="field is-grouped">
                 <div class="control">
-                  <button class="button is-link" type="submit">Se connecter</button>
+                  <button class="button is-link" :disabled="!formMeta.valid" type="submit">Se connecter</button>
                 </div>
                 <div class="control">
                   <button class="button is-link is-light">Annuler</button>
@@ -82,7 +82,8 @@
 
 <script lang="ts">
 import {computed, defineComponent, reactive} from "vue";
-import {useField , useForm} from 'vee-validate';
+import {useStore} from "vuex";
+import {useField , useForm} from "vee-validate";
 import axios from "axios";
 import { server } from '../helper'
 import router from "../router";
@@ -95,26 +96,25 @@ interface user {
 export default defineComponent({
   name: "Clogin",
   setup() {
+    const store = useStore();
 
     const { meta: formMeta, handleSubmit } = useForm();
     const emailField = reactive(useField('email', 'email'));
     const passwordField = reactive(useField('password', 'password'));
+    const customerData: user = reactive({email:'', password:'' });
 
 
-    const submitForm = handleSubmit((formValues) => {
-      console.log(formValues.email)
-      console.log(formValues.password)
-    });
-
-    const customerData: user = reactive({email:'', password:'' })
-
-    const login = function () {
+    const submitForm = handleSubmit((formValues:any) => {
+      customerData.email = formValues.email;
+      customerData.password = formValues.password;
       console.log('customerData: ', customerData);
       submitToServer(customerData);
+      store.commit('setIsConnected', true)
       router.push({ name: "Home" });
       customerData.email = '';
       customerData.password = ''
-    }
+      console.log('customerData: ', customerData);
+    });
 
 
     const submitToServer = function (data: user) {
@@ -122,7 +122,6 @@ export default defineComponent({
     }
 
     return{
-      login,
       submitToServer,
       customerData,
       emailField,
