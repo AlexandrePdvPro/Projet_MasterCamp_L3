@@ -10,27 +10,23 @@
               Veuillez saisir l'adresse email de votre compte. Si celle ci est
               enregistrée, vous recevrez un mail de réinitialisation
             </p>
-            <form action="">
+            <Form  @submit="onSubmit">
               <div class="field">
                 <div class="control has-icons-left has-icons-right">
-                  <input
-                    class="input"
-                    type="text"
-                    placeholder="Email"
-                    required
-                  />
+                  <input class="input" name="email" type="email" placeholder="Email" v-model="value" />
+                  <span>{{errorMessage}}</span>
                 </div>
               </div>
 
-              <div class="field is-grouped">
+              <div class="field is-grouped">S
                 <div class="control">
-                  <button class="button is-link">Envoyer l'email</button>
+                  <button type="submit" class="button is-link">Envoyer l'email</button>
                 </div>
                 <div class="control">
                   <button class="button is-link is-light">Annuler</button>
                 </div>
               </div>
-            </form>
+            </Form>
           </div>
         </div>
       </div>
@@ -38,7 +34,7 @@
   </section>
 </template>
 
-<script>
+<script lang="ts">
 import { defineComponent } from "vue";
 
 export default defineComponent({
