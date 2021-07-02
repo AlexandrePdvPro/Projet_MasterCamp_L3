@@ -74,11 +74,12 @@ document.addEventListener("DOMContentLoaded", () => {
 </script>
 
 <style>
-#app {
+.navbar.is-dark.is-fixed-top {
 	font-family: Avenir, Helvetica, Arial, sans-serif;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 	text-align: center;
 	color: #2c3e50;
+	overflow: hidden;
 }
 </style>

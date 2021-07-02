@@ -10,7 +10,7 @@
 				></CCandidat>
 			</div>
 		</div>
-		<div class="hero-foot">Hello</div>
+		<div class="hero-foot">Copyright TkinterTeam</div>
 	</section>
 </template>
 
@@ -27,9 +27,14 @@ export default defineComponent({
 		CCandidat,
 	},
 	setup() {
-		// const candidats pour les tests
+		// const candidats pour les tests, à laisser vide en prod
 		const candidats = [
-			{ nom: "Bertrand", parti: "Gauche", imgUrl: require("../assets/logo.png") },
+			{
+				nom: "Bertrand",
+				parti: "Gauche",
+				imgUrl: require("../assets/logo.png"),
+			},
+			{ nom: "Arnaud", parti: "Droite", imgUrl: require("../assets/logo.png") },
 			{ nom: "Arnaud", parti: "Droite", imgUrl: require("../assets/logo.png") },
 		];
 		function getCandidats(): void {
@@ -55,4 +60,9 @@ export default defineComponent({
 });
 </script>
 
-<style scoped></style>
+<style scoped>
+.tile.is-ancestor {
+	justify-content: center;
+	flex-wrap: wrap;
+}
+</style>
