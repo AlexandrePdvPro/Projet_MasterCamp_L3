@@ -3,18 +3,18 @@ import { UsersService } from './users.service';
 import { LocalAuthGuard } from '../auth/local-auth.guard';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 
-@Controller()
+@Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   @UseGuards(JwtAuthGuard)
-  @Get()
+  @Get('get/users')
   getAll() {
-    return this.usersService.getAllUsers();
+    return this.usersService.findAll();
   }
 
   @UseGuards(JwtAuthGuard)
-  @Get('/one')
+  @Get('find/user')
   getOne(@Request() req) {
     return this.usersService.getOne(req.user);
   }

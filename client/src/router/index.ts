@@ -31,11 +31,12 @@ const routes: Array<RouteRecordRaw> = [
     name: "Panel",
     component: Panel,
   },
+
 ];
 
 const router = createRouter({
-  history: createWebHashHistory(),
-  routes,
+	history: createWebHashHistory(),
+	routes,
 });
 
 export default router;
