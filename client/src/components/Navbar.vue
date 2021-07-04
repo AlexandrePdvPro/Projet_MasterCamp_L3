@@ -1,5 +1,5 @@
 <template>
-	<nav class="navbar is-dark" role="navigation" aria-label="main navigation">
+	<nav class="navbar is-dark is-fixed-top" role="navigation" aria-label="main navigation">
 		<div class="navbar-brand">
 			<router-link class="navbar-item" to="/">
 				<img src="../assets/LogoTk.svg" width="112" height="28" alt="" />
@@ -29,7 +29,6 @@
 						<a class="navbar-item"> About </a>
 						<a class="navbar-item"> Jobs </a>
 						<a class="navbar-item"> Contact </a>
-						<hr class="navbar-divider" />
 						<a class="navbar-item"> Report an issue </a>
 					</div>
 				</div>
@@ -39,7 +38,7 @@
 				<div class="navbar-item">
 					<div class="buttons">
 						<router-link class="button is-link" to="/Register">S'enregistrer</router-link>
-						<router-link class="button is-white" to="/Login">Se connecter</router-link>
+						<router-link class="button is-secondary" to="/Login">Se connecter</router-link>
 					</div>
 				</div>
 			</div>
@@ -104,4 +103,10 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.navbar-dropdown,
+.navbar-menu {
+	background-color: #363636;
+	border-top: 0px;
+}
+</style>

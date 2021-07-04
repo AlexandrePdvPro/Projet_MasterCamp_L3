@@ -1,2 +1,23 @@
 @charset "utf-8";
+@import "../node_modules/bulma/sass/utilities/initial-variables";
+@import "../node_modules/bulma/sass/utilities/functions";
+
+// Update colors from Bulma
+$bg-blue: #264653;
+$turquoise: #2a9d8f;
+
+// Update derived variables
+$primary: $bg-blue;
+$text: lightgrey;
+
+// New colors
+$custom-colors: (
+	// Add custom colors here
+	"secondary": $turquoise,
+	"pale-yellow": #e9c46a,
+	"pale-orange": #f4a261,
+	"accent": #e76f51
+);
+
+// Keep import in last place so that previous variables work
 @import "../node_modules/bulma/bulma.sass";

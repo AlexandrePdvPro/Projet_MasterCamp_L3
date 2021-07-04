@@ -1,6 +1,6 @@
 <template>
 	<div class="home">
-		<section class="hero is-fullheight">
+		<section class="hero is-fullheight is-primary">
 			<div class="hero-body is-justify-content-center">
 				<div class="columns is-vcentered">
 					<div class="column">
@@ -15,14 +15,13 @@
 							</div>
 						</div>
 					</div>
-					<div class="column">
+					<div class="column is-flex is-justify-content-center">
 						<figure class="image">
 							<img src="../assets/logo_vote.svg" alt="" />
 						</figure>
 					</div>
 				</div>
 			</div>
-			<div class="hero-foot">Hello</div>
 		</section>
 	</div>
 </template>
@@ -39,12 +38,5 @@ export default defineComponent({
 .image {
 	width: 256px;
 	height: 256px;
-}
-.hero.is-fullheight {
-	background-color: #264653;
-}
-p,
-q {
-	color: lightgrey;
 }
 </style>
