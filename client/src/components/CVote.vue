@@ -1,5 +1,5 @@
 <template>
-	<section class="hero is-primary is-fullheight">
+	<section class="hero is-fullheight">
 		<div class="hero-body">
 			<div class="tile is-ancestor">
 				<CCandidat
@@ -64,5 +64,8 @@ export default defineComponent({
 .tile.is-ancestor {
 	justify-content: center;
 	flex-wrap: wrap;
+}
+.hero.is-fullheight {
+	background-color: #264653;
 }
 </style>

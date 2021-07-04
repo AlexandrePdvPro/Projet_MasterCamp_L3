@@ -44,6 +44,7 @@ export default defineComponent({
 .custom-tile {
 	margin: 25px;
 	min-width: 260px;
-	max-width: 500px;
+	max-width: 350px;
+	background-color: #2a9d8f;
 }
 </style>

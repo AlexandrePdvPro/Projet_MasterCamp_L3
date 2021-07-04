@@ -1,6 +1,6 @@
 <template>
 	<div class="home">
-		<section class="hero is-primary is-fullheight">
+		<section class="hero is-fullheight">
 			<div class="hero-body is-justify-content-center">
 				<div class="columns is-vcentered">
 					<div class="column">
@@ -8,7 +8,7 @@
 							<div class="block">
 								<p class="title">Besoin de voter ?</p>
 								<q class="subtitle">L'adulte ne croit pas au Père Noël, il vote.</q>
-								<p class="subtitle">Pierre Desproges</p>
+								<p class="subtitle">- Pierre Desproges</p>
 							</div>
 							<div class="block">
 								<router-link class="button is-info" to="/vote"> Voter </router-link>
@@ -39,5 +39,12 @@ export default defineComponent({
 .image {
 	width: 256px;
 	height: 256px;
+}
+.hero.is-fullheight {
+	background-color: #264653;
+}
+p,
+q {
+	color: lightgrey;
 }
 </style>
