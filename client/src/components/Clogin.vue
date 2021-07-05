@@ -66,11 +66,7 @@
 							</div>
 						</form>
 					</div>
-					<p>
-						<router-link to="/Register">S'enregistrer</router-link>
-						&nbsp;·&nbsp;
-						<router-link to="/reset-password">Mot de passe oublié ?</router-link>
-					</p>
+					<router-link to="/reset-password">Mot de passe oublié ?</router-link>
 				</div>
 			</div>
 		</div>
