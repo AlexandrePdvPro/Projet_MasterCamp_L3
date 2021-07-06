@@ -448,5 +448,5 @@ getProposal(0).then(function (result) {
 });
 
 getNumberOfVotePerProposal(0, 1).then(function (result) {
-  console.log('The number of vote is : ' + JSON.stringify(result));
+  console.log('The number of votes is : ' + JSON.stringify(result));
 });
