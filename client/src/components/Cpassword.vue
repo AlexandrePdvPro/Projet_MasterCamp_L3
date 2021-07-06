@@ -23,7 +23,7 @@
                 </div>
               </div>
 
-              <div class="field is-grouped">S
+              <div class="field is-grouped">
                 <div class="control">
                   <button class="button is-link" type="submit" value="Send">
                     Envoyer l'email
@@ -69,4 +69,8 @@ export default defineComponent({
 });
 </script>
 
-<style scoped></style>
+<style scoped>
+::placeholder {
+	color: black;
+}
+</style>

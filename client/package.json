@@ -10,8 +10,10 @@
   "dependencies": {
     "@vee-validate/rules": "^4.1.20",
     "axios": "^0.21.1",
+    "bulma": "^0.9.3",
     "core-js": "^3.15.2",
     "emailjs-com": "^3.1.0",
+    "node-sass": "^6.0.1",
     "vee-validate": "^4.4.5",
     "vue": "^3.1.2",
     "vue-router": "^4.0.10",

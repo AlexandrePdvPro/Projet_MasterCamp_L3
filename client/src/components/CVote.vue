@@ -1,16 +1,15 @@
 <template>
-	<section class="hero is-primary is-fullheight">
+	<section class="hero is-fullheight is-primary">
 		<div class="hero-body">
 			<div class="tile is-ancestor">
 				<CCandidat
-					class="tile notification is-parent is-danger"
+					class="tile notification is-parent is-secondary"
 					v-for="candidat in candidats"
 					:key="candidat"
 					:candidat="candidat"
 				></CCandidat>
 			</div>
 		</div>
-		<div class="hero-foot">Copyright TkinterTeam</div>
 	</section>
 </template>
 
