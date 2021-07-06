@@ -20,5 +20,15 @@ npm run build
 npm run lint
 ```
 
+### Create bulma css file
+```
+npm run css-build
+```
+
+### Live update css file
+```
+npm run css-watch
+```
+
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).

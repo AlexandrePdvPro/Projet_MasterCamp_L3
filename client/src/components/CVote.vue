@@ -36,8 +36,8 @@ export default defineComponent({
 			{ nom: "Arnaud", parti: "Droite", imgUrl: require("../assets/logo.png") },
 			{ nom: "Arnaud", parti: "Droite", imgUrl: require("../assets/logo.png") },
 		];
-		function getCandidats(): void {
-			axios.get("/vote").then((response) => {
+		async function getCandidats(): Promise<void> {
+			await axios.get("/vote").then((response) => {
 				let res = response.data;
 				for (const candidat in res) {
 					let candidat = new Candidat();
