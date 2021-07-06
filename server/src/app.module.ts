@@ -7,7 +7,6 @@ import { UserEntity } from './users/entity/user.entity';
 import { Connection } from 'typeorm';
 import { UserHttpModule } from './users/users-http.module';
 import { SessionModule } from './session/session.module';
-import { VotesModule } from './votes/votes.module';
 
 @Module({
   imports: [
@@ -16,7 +15,6 @@ import { VotesModule } from './votes/votes.module';
     UserHttpModule,
     TypeOrmModule.forFeature([UserEntity]),
     SessionModule,
-    VotesModule,
   ],
   controllers: [AppController],
 })
