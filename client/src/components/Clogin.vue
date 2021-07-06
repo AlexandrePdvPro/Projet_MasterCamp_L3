@@ -6,36 +6,60 @@
           <h3 class="title has-text-black">Se connecter</h3>
           <hr class="login-hr" />
           <div class="box">
-            <form @submit.prevent="login()">
+            <form @submit.prevent="submitForm">
               <div class="field">
                 <label class="label">Email</label>
                 <div class="control has-icons-left has-icons-right">
                   <input
-                    class="input"
-                    type="text"
-                    placeholder="Email"
-                    v-model="customerData.email"
-                    required
+                      class="input"
+                      type="email"
+                      placeholder="Adresse email"
+                      @input="emailField.handleChange"
+                      @blur="emailField.handleBlur"
+                      :value="emailField.value"
                   />
                 </div>
+                <p
+                    class="has-text-danger"
+                    :style="{
+                      visibility:
+                        emailField.meta.touched && !emailField.meta.valid
+                          ? 'visible'
+                          : 'hidden',
+                    }"
+                >
+                  {{ emailField.errorMessage || 'Ce champ est requis' }}
+                </p>
               </div>
 
               <div class="field">
                 <label class="label">Mot de passe</label>
                 <div class="control has-icons-left has-icons-right">
                   <input
-                    class="input"
-                    type="text"
-                    placeholder="Mot de passe"
-                    v-model="customerData.password"
-                    required
+                      class="input"
+                      type="password"
+                      placeholder="Password"
+                      @input="passwordField.handleChange($event)"
+                      @blur="passwordField.handleBlur"
+                      :value="passwordField.value"
                   />
                 </div>
+                <p
+                    class="has-text-danger"
+                    :style="{
+                      visibility:
+                        passwordField.meta.touched && !passwordField.meta.valid
+                          ? 'visible'
+                          : 'hidden',
+                    }"
+                >
+                  {{ passwordField.errorMessage || 'Ce champ est requis' }}
+                </p>
               </div>
 
               <div class="field is-grouped">
                 <div class="control">
-                  <button class="button is-link" type="submit">Se connecter</button>
+                  <button class="button is-link" :disabled="!formMeta.valid" type="submit">Se connecter</button>
                 </div>
                 <div class="control">
                   <button class="button is-link is-light">Annuler</button>
@@ -57,7 +81,9 @@
 </template>
 
 <script lang="ts">
-import {defineComponent, reactive} from "vue";
+import {computed, defineComponent, reactive} from "vue";
+import {useStore} from "vuex";
+import {useField , useForm} from "vee-validate";
 import axios from "axios";
 import { server } from '../helper'
 import router from "../router";
@@ -69,24 +95,39 @@ interface user {
 
 export default defineComponent({
   name: "Clogin",
-  setup(props, ctx) {
+  setup() {
+    const store = useStore();
 
-    const customerData: user = reactive({email:'', password:'' })
+    const { meta: formMeta, handleSubmit } = useForm();
+    const emailField = reactive(useField('email', 'email'));
+    const passwordField = reactive(useField('password', 'password'));
+    const customerData: user = reactive({email:'', password:'' });
 
-    const login = function () {
+
+    const submitForm = handleSubmit((formValues:any) => {
+      customerData.email = formValues.email;
+      customerData.password = formValues.password;
       console.log('customerData: ', customerData);
-      __submitToServer(customerData);
+      submitToServer(customerData);
+      store.commit('setIsConnected', true)
       router.push({ name: "Home" });
-    }
+      customerData.email = '';
+      customerData.password = ''
+      console.log('customerData: ', customerData);
+    });
 
-    const __submitToServer = function (data: user) {
-      axios.post(`${server.baseURL}/api/auth/login`, data).then(data => console.log('customerData: ', customerData));
+
+    const submitToServer = function (data: user) {
+      axios.post(`${server.baseURL}/api/auth/login`, data);
     }
 
     return{
-      login,
-      __submitToServer,
+      submitToServer,
       customerData,
+      emailField,
+      passwordField,
+      submitForm,
+      formMeta,
     }
   }
 });

@@ -23,7 +23,7 @@
                 </div>
               </div>
 
-              <div class="field is-grouped">
+              <div class="field is-grouped">S
                 <div class="control">
                   <button class="button is-link" type="submit" value="Send">
                     Envoyer l'email
@@ -33,7 +33,7 @@
                   <button class="button is-link is-light">Annuler</button>
                 </div>
               </div>
-            </form>
+            </Form>
           </div>
         </div>
       </div>
@@ -41,7 +41,7 @@
   </section>
 </template>
 
-<script>
+<script lang="ts">
 import { defineComponent } from "vue";
 
 export default defineComponent({

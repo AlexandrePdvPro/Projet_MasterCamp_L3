@@ -1,10 +1,11 @@
 <template>
 	<div class="custom-tile">
-		<div class="tile is-child">
-			<figure class="image">
+		<div class="tile is-child has-text-centered">
+			<figure class="image is-128x128 is-inline-block">
 				<img :src="candidat.imgUrl" alt="Photo des candidats" />
 			</figure>
-			<p class="title">{{ candidat.nom }} - {{ candidat.parti }}</p>
+			<h1 class="title">{{ candidat.nom }}</h1>
+			<h2 class="title">{{ candidat.parti }}</h2>
 			<button class="button is-link">Voter</button>
 		</div>
 	</div>
@@ -42,6 +43,7 @@ export default defineComponent({
 <style scoped>
 .custom-tile {
 	margin: 25px;
-	justify-content: center;
+	min-width: 260px;
+	max-width: 500px;
 }
 </style>
