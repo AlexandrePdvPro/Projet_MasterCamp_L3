@@ -43,11 +43,12 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
+import * as emailjs from "emailjs-com";
 
 export default defineComponent({
   name: "Cpassword",
   methods: {
-    sendEmail: (e) => {
+    sendEmail: (e: any) => {
       // eslint-disable-next-line no-undef
       emailjs
         .sendForm(
@@ -57,10 +58,10 @@ export default defineComponent({
           "user_coH8k9D5xfQORmgGGdVd0"
         )
         .then(
-          (result) => {
+          (result: any) => {
             console.log("Email sent successfully", result.status, result.text);
           },
-          (error) => {
+          (error: any) => {
             console.log("Failed", error);
           }
         );

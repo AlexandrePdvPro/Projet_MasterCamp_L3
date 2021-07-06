@@ -5,32 +5,56 @@
 				<div class="column is-4 is-offset-4">
 					<h3 class="title">S'enregistrer</h3>
 					<div class="box">
-						<form @submit.prevent="Register">
-							<div class="field">
-								<label class="label">Nom</label>
-								<div class="control has-icons-left has-icons-right">
-									<input
-										v-model="customerData.nom"
-										class="input"
-										type="text"
-										placeholder="Nom"
-										required
-									/>
-								</div>
-							</div>
+						<form @submit.prevent="submitForm">
+              <div class="field">
+                <label class="label">Nom</label>
+                <div class="control has-icons-left has-icons-right">
+                  <input
+                      class="input"
+                      type="text"
+                      placeholder="Nom"
+                      @input="nomField.handleChange($event)"
+                      @blur="nomField.handleBlur"
+                      :value="nomField.value"
+                  />
+                </div>
+                <p
+                    class="has-text-danger"
+                    :style="{
+                      visibility:
+                        nomField.meta.touched && !nomField.meta.valid
+                          ? 'visible'
+                          : 'hidden',
+                    }"
+                >
+                  {{ nomField.errorMessage || 'Ce champ est requis' }}
+                </p>
+              </div>
 
-							<div class="field">
-								<label class="label">Prenom</label>
-								<div class="control has-icons-left has-icons-right">
-									<input
-										v-model="customerData.prenom"
-										class="input"
-										type="text"
-										placeholder="Prenom"
-										required
-									/>
-								</div>
-							</div>
+              <div class="field">
+                <label class="label">Prénom</label>
+                <div class="control has-icons-left has-icons-right">
+                  <input
+                      class="input"
+                      type="text"
+                      placeholder="Prénom"
+                      @input="prenomField.handleChange($event)"
+                      @blur="prenomField.handleBlur"
+                      :value="prenomField.value"
+                  />
+                </div>
+                <p
+                    class="has-text-danger"
+                    :style="{
+                      visibility:
+                        prenomField.meta.touched && !prenomField.meta.valid
+                          ? 'visible'
+                          : 'hidden',
+                    }"
+                >
+                  {{ prenomField.errorMessage || 'Ce champ est requis' }}
+                </p>
+              </div>
 
               <div class="field">
                 <label class="label">Email</label>
@@ -57,18 +81,30 @@
                 </p>
               </div>
 
-							<div class="field">
-								<label class="label">Numéro d'identité</label>
-								<div class="control has-icons-left has-icons-right">
-									<input
-										v-model="customerData.numero_id"
-										class="input"
-										type="text"
-										placeholder="Identité"
-										required
-									/>
-								</div>
-							</div>
+              <div class="field">
+                <label class="label">Numéro d'identité</label>
+                <div class="control has-icons-left has-icons-right">
+                  <input
+                      class="input"
+                      type="text"
+                      placeholder="Identité"
+                      @input="idField.handleChange($event)"
+                      @blur="idField.handleBlur"
+                      :value="idField.value"
+                  />
+                </div>
+                <p
+                    class="has-text-danger"
+                    :style="{
+                      visibility:
+                        idField.meta.touched && !idField.meta.valid
+                          ? 'visible'
+                          : 'hidden',
+                    }"
+                >
+                  {{ idField.errorMessage || 'Ce champ est requis' }}
+                </p>
+              </div>
 
               <div class="field">
                 <label class="label">Mot de passe</label>
@@ -121,21 +157,12 @@
                 </p>
               </div>
 
-              <div class="field">
-                <div class="control">
-                  <label class="checkbox">
-                    <input type="checkbox" required />
-                    J'accepte les <a href="#">conditions d'utilisation</a>
-                  </label>
-                </div>
-              </div>
-
 							<div class="field is-grouped is-justify-content-center">
 								<div class="control">
-									<button type="submit" class="button is-link">S'enregistrer</button>
+									<button type="submit" class="button is-link" :disabled="!formMeta.valid">S'enregistrer</button>
 								</div>
 								<div class="control">
-									<button class="button is-link is-light">Annuler</button>
+									<router-link class="button is-link is-light" to="/">Annuler</router-link>
 								</div>
 							</div>
 						</form>
@@ -174,8 +201,10 @@ export default defineComponent({
 
     const { meta: formMeta, handleSubmit } = useForm();
     const emailField = reactive(useField('email', 'email'));
+    const nomField = reactive(useField('nom', 'user' ));
+    const prenomField = reactive(useField('prenom', 'user'));
+    const idField = reactive(useField('ID', 'user'));
     const passwordField = reactive(useField('password', 'password'));
-    const customerData: newUser = reactive({nom:'', prenom:'', email:'', numero_id: '', password:'' })
 
     const confirmPasswordValidator = computed(() => {
       return 'confirmPassword:password';
@@ -184,30 +213,33 @@ export default defineComponent({
     const confirmPasswordField = reactive(useField('confirmPassword', confirmPasswordValidator));
 
     const submitForm = handleSubmit((formValues:any) => {
+      customerData.nom = formValues.nom;
+      customerData.prenom = formValues.prenom;
+      customerData.numero_id = formValues.ID;
       customerData.email = formValues.email;
       customerData.password = formValues.password;
       console.log('customerData: ', customerData);
       submitToServer(customerData);
       router.push({ name: "Home" });
       customerData.email = '';
-      customerData.password = ''
+      customerData.password = '';
+      customerData.nom ='';
+      customerData.prenom = '';
+      customerData.numero_id = '';
       console.log('customerData: ', customerData);
     });
 
-    const Register = function () {
-      console.log(customerData);
-      submitToServer(customerData);
-      router.push({ name: "Home" });
-    };
 
     const submitToServer = function (data: newUser) {
           axios.put(`${server.baseURL}/api/add/user`, data)
     }
 
     return {
-      Register,
       submitToServer,
       customerData,
+      nomField,
+      prenomField,
+      idField,
       emailField,
       passwordField,
       confirmPasswordField,
