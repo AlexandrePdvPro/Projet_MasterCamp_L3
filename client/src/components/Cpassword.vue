@@ -10,17 +10,24 @@
               Veuillez saisir l'adresse email de votre compte. Si celle ci est
               enregistrée, vous recevrez un mail de réinitialisation
             </p>
-            <Form  @submit="onSubmit">
+            <form @submit.prevent="sendEmail">
               <div class="field">
                 <div class="control has-icons-left has-icons-right">
-                  <input class="input" name="email" type="email" placeholder="Email" v-model="value" />
-                  <span>{{errorMessage}}</span>
+                  <input
+                    class="input"
+                    type="text"
+                    placeholder="Email"
+                    name="user_email"
+                    required
+                  />
                 </div>
               </div>
 
               <div class="field is-grouped">S
                 <div class="control">
-                  <button type="submit" class="button is-link">Envoyer l'email</button>
+                  <button class="button is-link" type="submit" value="Send">
+                    Envoyer l'email
+                  </button>
                 </div>
                 <div class="control">
                   <button class="button is-link is-light">Annuler</button>
@@ -39,6 +46,26 @@ import { defineComponent } from "vue";
 
 export default defineComponent({
   name: "Cpassword",
+  methods: {
+    sendEmail: (e) => {
+      // eslint-disable-next-line no-undef
+      emailjs
+        .sendForm(
+          "tkinvote_resetpwd",
+          "tkinvote_reset_password",
+          e.target,
+          "user_coH8k9D5xfQORmgGGdVd0"
+        )
+        .then(
+          (result) => {
+            console.log("Email sent successfully", result.status, result.text);
+          },
+          (error) => {
+            console.log("Failed", error);
+          }
+        );
+    },
+  },
 });
 </script>
 
