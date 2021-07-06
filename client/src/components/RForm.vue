@@ -105,11 +105,11 @@
 <script lang="ts">
 import { defineComponent, reactive } from "vue";
 import axios from "axios";
-import { server } from '../helper'
+import { server } from "../helper";
 import router from "../router";
 
 interface newUser {
-  nom : string;
+  nom: string;
   prenom: string;
   email: string;
   numero_id: string;
@@ -119,25 +119,32 @@ interface newUser {
 export default defineComponent({
   name: "RForm",
   setup() {
-
-    const customerData: newUser = reactive({nom:'', prenom:'', email:'', numero_id: '', password:'' })
+    const customerData: newUser = reactive({
+      nom: "",
+      prenom: "",
+      email: "",
+      numero_id: "",
+      password: "",
+    });
 
     const Register = function () {
       console.log(customerData);
       submitToServer(customerData);
       router.push({ name: "Home" });
-    }
+    };
 
     const submitToServer = function (data: newUser) {
-          axios.put(`${server.baseURL}/api/add/user`, data).then(response => console.log(customerData) );
-    }
+      axios
+        .put(`${server.baseURL}/api/users/add/user`, data)
+        .then((response) => console.log(customerData));
+    };
 
-    return{
+    return {
       Register,
       submitToServer,
       customerData,
-    }
-  }
+    };
+  },
 });
 </script>
 
