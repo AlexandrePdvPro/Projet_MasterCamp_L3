@@ -103,42 +103,42 @@ import { server } from "../helper";
 import router from "../router";
 
 interface newUser {
-  nom: string;
-  prenom: string;
-  email: string;
-  numero_id: string;
-  password: string;
+	nom: string;
+	prenom: string;
+	email: string;
+	numero_id: string;
+	password: string;
 }
 
 export default defineComponent({
-  name: "RForm",
-  setup() {
-    const customerData: newUser = reactive({
-      nom: "",
-      prenom: "",
-      email: "",
-      numero_id: "",
-      password: "",
-    });
+	name: "RForm",
+	setup() {
+		const customerData: newUser = reactive({
+			nom: "",
+			prenom: "",
+			email: "",
+			numero_id: "",
+			password: "",
+		});
 
-    const Register = function () {
-      console.log(customerData);
-      submitToServer(customerData);
-      router.push({ name: "Home" });
-    };
+		const Register = function () {
+			console.log(customerData);
+			submitToServer(customerData);
+			router.push({ name: "Home" });
+		};
 
-    const submitToServer = function (data: newUser) {
-      axios
-        .put(`${server.baseURL}/api/users/add/user`, data)
-        .then((response) => console.log(customerData));
-    };
+		const submitToServer = function (data: newUser) {
+			axios
+				.put(`${server.baseURL}/api/users/add/user`, data)
+				.then((response) => console.log(customerData));
+		};
 
-    return {
-      Register,
-      submitToServer,
-      customerData,
-    };
-  },
+		return {
+			Register,
+			submitToServer,
+			customerData,
+		};
+	},
 });
 </script>
 
