@@ -37,27 +37,27 @@ import { defineComponent } from "vue";
 import * as emailjs from "emailjs-com";
 
 export default defineComponent({
-	name: "Cpassword",
-	methods: {
-		sendEmail: (e: any) => {
-			// eslint-disable-next-line no-undef
-			emailjs
-				.sendForm(
-					"tkinvote_resetpwd",
-					"tkinvote_reset_password",
-					e.target,
-					"user_coH8k9D5xfQORmgGGdVd0"
-				)
-				.then(
-					(result: any) => {
-						console.log("Email sent successfully", result.status, result.text);
-					},
-					(error: any) => {
-						console.log("Failed", error);
-					}
-				);
-		},
-	},
+  name: "Cpassword",
+  methods: {
+    sendEmail: (e: any) => {
+      // eslint-disable-next-line no-undef
+      emailjs
+        .sendForm(
+          "tkinvote_resetpwd",
+          "tkinvote_reset_password",
+          e.target,
+          "user_coH8k9D5xfQORmgGGdVd0"
+        )
+        .then(
+          (result: any) => {
+            console.log("Email sent successfully", result.status, result.text);
+          },
+          (error: any) => {
+            console.log("Failed", error);
+          }
+        );
+    },
+  },
 });
 </script>
 

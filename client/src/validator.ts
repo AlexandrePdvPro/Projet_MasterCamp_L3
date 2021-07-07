@@ -1,5 +1,5 @@
 import { defineRule} from "vee-validate";
-import {email, required, min, max} from '@vee-validate/rules';
+import {email, required, min, max, } from '@vee-validate/rules';
 
 defineRule('email', (value: string) => {
     if(email(value) && required(value)){
@@ -7,6 +7,14 @@ defineRule('email', (value: string) => {
     }
 
     return "Veuillez entrer une adresse mail valide"
+});
+
+defineRule('user', (value: string) => {
+    if(required(value)){
+        return true;
+    }
+
+    return "Ce champ est requis"
 });
 
 defineRule('password', (value: string) => {
