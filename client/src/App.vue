@@ -1,7 +1,9 @@
 <template>
 	<div>
 		<Navbar></Navbar>
-		<router-view />
+		<transition name="fade" mode="out-in">
+			<router-view :key="$route.fullPath" />
+		</transition>
 	</div>
 </template>
 
@@ -17,5 +19,19 @@ export default {
 </script>
 
 <style>
+template {
+	background-color: #264653;
+}
+
+.fade-enter,
+.fade-leave-to {
+	opacity: 0;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+	transition: opacity 0.3s ease-out;
+}
+
 @import "../css/mystyles.css";
 </style>

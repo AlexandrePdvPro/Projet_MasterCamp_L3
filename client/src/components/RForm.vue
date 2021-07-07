@@ -181,23 +181,23 @@ import router from "../router";
 import {useField, useForm} from "vee-validate";
 
 interface newUser {
-  nom: string;
-  prenom: string;
-  email: string;
-  numero_id: string;
-  password: string;
+	nom: string;
+	prenom: string;
+	email: string;
+	numero_id: string;
+	password: string;
 }
 
 export default defineComponent({
-  name: "RForm",
-  setup() {
-    const customerData: newUser = reactive({
-      nom: "",
-      prenom: "",
-      email: "",
-      numero_id: "",
-      password: "",
-    });
+	name: "RForm",
+	setup() {
+		const customerData: newUser = reactive({
+			nom: "",
+			prenom: "",
+			email: "",
+			numero_id: "",
+			password: "",
+		});
 
     const { meta: formMeta, handleSubmit } = useForm();
     const emailField = reactive(useField('email', 'email'));
@@ -231,7 +231,7 @@ export default defineComponent({
 
 
     const submitToServer = function (data: newUser) {
-          axios.put(`${server.baseURL}/api/add/user`, data)
+          axios.put(`${server.baseURL}/api/users/add/user`, data)
     }
 
     return {

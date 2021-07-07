@@ -4,15 +4,18 @@
 		<meta charset="utf-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width,initial-scale=1.0" />
-		<link rel="icon" href="<%= BASE_URL %>favicon.ico" />
+		<link rel="icon" type="image/ico" href="/favicon.ico" />
 		<link rel="stylesheet" href="/client/css/mystyles.css" />
 		<title>TKinVote</title>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/emailjs-com@2/dist/email.min.js"></script>
-      <script type="text/javascript">
-          (function() {
-              emailjs.init("user_coH8k9D5xfQORmgGGdVd0");
-          })();
-      </script>
+		<script
+			type="text/javascript"
+			src="https://cdn.jsdelivr.net/npm/emailjs-com@2/dist/email.min.js"
+		></script>
+		<script type="text/javascript">
+			(function () {
+				emailjs.init("user_coH8k9D5xfQORmgGGdVd0");
+			})();
+		</script>
 	</head>
 	<body>
 		<noscript>
@@ -29,5 +32,8 @@
 <style>
 	html {
 		overflow-y: hidden;
+	}
+	#app {
+		background-color: #264653;
 	}
 </style>
