@@ -167,7 +167,7 @@
 
 <script lang="ts">
 import { defineComponent, reactive, computed } from "vue";
-import axios from "axios";
+import axios, {AxiosResponse} from "axios";
 import { server } from "../helper";
 import router from "../router";
 import { useField, useForm } from "vee-validate";
@@ -198,6 +198,7 @@ export default defineComponent({
     const prenomField = reactive(useField("prenom", "user"));
     const idField = reactive(useField("ID", "user"));
     const passwordField = reactive(useField("password", "password"));
+    let id_alert: AxiosResponse<any> | null = null;
 
     const confirmPasswordValidator = computed(() => {
       return "confirmPassword:password";
@@ -207,15 +208,16 @@ export default defineComponent({
       useField("confirmPassword", confirmPasswordValidator)
     );
 
-    const submitForm = handleSubmit((formValues: any) => {
+    const submitForm = handleSubmit(async (formValues: any) => {
       customerData.nom = formValues.nom;
       customerData.prenom = formValues.prenom;
       customerData.numero_id = formValues.ID;
       customerData.email = formValues.email;
       customerData.password = formValues.password;
       console.log("customerData: ", customerData);
-      submitToServer(customerData);
-      getUserId(customerData.email);
+      await submitToServer(customerData);
+      id_alert = await getUserId(customerData.email);
+      alertID(id_alert?.data.user_id);
       router.push({ name: "Home" });
       customerData.email = "";
       customerData.password = "";
@@ -226,17 +228,24 @@ export default defineComponent({
     });
 
     const submitToServer = function (data: newUser) {
-      axios.put(`${server.baseURL}/api/users/add/user`, data);
+      return axios.put(`${server.baseURL}/api/users/add/user`, data);
     };
 
     const getUserId = function (data: string): any {
-      return axios.get(`${server.baseURL}/api/user_id`, {
-        params: data,
+      return axios.get(`${server.baseURL}/api/users/get/user_id`, {
+        params:{
+          email: data,
+        },
       });
     };
 
+    const alertID = function (id: any) {
+      alert("Voici votre identifiant unique à conserver précieusement : \n" + id)
+    }
+
     return {
       submitToServer,
+      alertID,
       customerData,
       nomField,
       prenomField,
@@ -246,6 +255,7 @@ export default defineComponent({
       confirmPasswordField,
       submitForm,
       formMeta,
+      id_alert,
     };
   },
 });

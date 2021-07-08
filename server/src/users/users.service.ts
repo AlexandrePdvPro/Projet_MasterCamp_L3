@@ -54,11 +54,11 @@ export class UsersService {
     console.log('User added');
   }
 
-  async getUser(params: any): Promise<UserEntity> {
-    console.log('usersService    user: ', params);
+  async getUser(email: string): Promise<UserEntity> {
+    console.log('usersService    user: ', email);
     const user = await getRepository(UserEntity)
       .createQueryBuilder('user')
-      .where('user.email = :email', { email: params.email })
+      .where('user.email = :email', {email })
       .getOne();
     return user;
   }
