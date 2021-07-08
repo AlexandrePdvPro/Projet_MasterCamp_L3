@@ -23,7 +23,7 @@
                   </div>
                 </div>
 
-                <div class="field">
+                <div v-if="!change" class="field">
                   <div class="dropdown is-hoverable">
                     <div class="dropdown-trigger">
                       <button
@@ -39,7 +39,7 @@
                     </div>
                     <div class="dropdown-menu" id="dropdown-menu3" role="menu">
                       <div class="dropdown-content">
-                        <a href="#" class="dropdown-item"> Public </a>
+                        <a href="#" class="dropdown-item"> Publique </a>
                         <a href="#" class="dropdown-item"> Privée </a>
                       </div>
                     </div>
@@ -49,7 +49,7 @@
             </div>
 
             <div v-if="change" class="column right has-text-centered">
-              <h1 class="title is-4">Création d'une session</h1>
+              <h1 class="title is-4">Ajouter un candidat </h1>
               <form>
                 <div class="field">
                   <div class="control">
@@ -65,8 +65,8 @@
                   <div class="control">
                     <input
                       class="input is-medium"
-                      type="email"
-                      placeholder="Email"
+                      type="text"
+                      placeholder="Nom du candidat"
                     />
                   </div>
                 </div>
