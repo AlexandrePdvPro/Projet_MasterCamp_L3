@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { getConnection, Repository } from 'typeorm';
+import { getConnection, getRepository, Repository } from 'typeorm';
 import { UserEntity } from './entity/user.entity';
 import 'reflect-metadata';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -30,11 +30,6 @@ export class UsersService {
     return await UserEntity.find();
   }
 
-  async getOne(user: any): Promise<UserEntity> {
-    console.log('fetching...');
-    return await UserEntity.findOne(user.user_id);
-  }
-
   async remove(id: string): Promise<void> {
     await this.usersRepository.delete(id);
   }
@@ -57,6 +52,15 @@ export class UsersService {
       ])
       .execute();
     console.log('User added');
+  }
+
+  async getUser(params: any): Promise<UserEntity> {
+    console.log('usersService    user: ', params);
+    const user = await getRepository(UserEntity)
+      .createQueryBuilder('user')
+      .where('user.email = :email', { email: params.email })
+      .getOne();
+    return user;
   }
 
   async hashIt(password: string): Promise<string> {
