@@ -181,70 +181,73 @@ interface newUser {
 }
 
 export default defineComponent({
-	name: "RForm",
-	setup() {
-		const customerData: newUser = reactive({
-			nom: "",
-			prenom: "",
-			email: "",
-			numero_id: "",
-			password: "",
-		});
 
-		const { meta: formMeta, handleSubmit } = useForm();
-		const emailField = reactive(useField("email", "email"));
-		const nomField = reactive(useField("nom", "user"));
-		const prenomField = reactive(useField("prenom", "user"));
-		const idField = reactive(useField("ID", "user"));
-		const passwordField = reactive(useField("password", "password"));
+  name: "RForm",
+  setup() {
+    const customerData: newUser = reactive({
+      nom: "",
+      prenom: "",
+      email: "",
+      numero_id: "",
+      password: "",
+    });
 
-		const confirmPasswordValidator = computed(() => {
-			return "confirmPassword:password";
-		});
+    const { meta: formMeta, handleSubmit } = useForm();
+    const emailField = reactive(useField("email", "email"));
+    const nomField = reactive(useField("nom", "user"));
+    const prenomField = reactive(useField("prenom", "user"));
+    const idField = reactive(useField("ID", "user"));
+    const passwordField = reactive(useField("password", "password"));
 
-		const confirmPasswordField = reactive(useField("confirmPassword", confirmPasswordValidator));
+    const confirmPasswordValidator = computed(() => {
+      return "confirmPassword:password";
+    });
 
-		const submitForm = handleSubmit((formValues: any) => {
-			customerData.nom = formValues.nom;
-			customerData.prenom = formValues.prenom;
-			customerData.numero_id = formValues.ID;
-			customerData.email = formValues.email;
-			customerData.password = formValues.password;
-			console.log("customerData: ", customerData);
-			submitToServer(customerData);
-			getUser(customerData.email);
-			router.push({ name: "Home" });
-			customerData.email = "";
-			customerData.password = "";
-			customerData.nom = "";
-			customerData.prenom = "";
-			customerData.numero_id = "";
-			console.log("customerData: ", customerData);
-		});
+    const confirmPasswordField = reactive(
+      useField("confirmPassword", confirmPasswordValidator)
+    );
 
-		const submitToServer = function (data: newUser) {
-			axios.put(`${server.baseURL}/api/users/add/user`, data);
-		};
+    const submitForm = handleSubmit((formValues: any) => {
+      customerData.nom = formValues.nom;
+      customerData.prenom = formValues.prenom;
+      customerData.numero_id = formValues.ID;
+      customerData.email = formValues.email;
+      customerData.password = formValues.password;
+      console.log("customerData: ", customerData);
+      submitToServer(customerData);
+      getUserId(customerData.email);
+      router.push({ name: "Home" });
+      customerData.email = "";
+      customerData.password = "";
+      customerData.nom = "";
+      customerData.prenom = "";
+      customerData.numero_id = "";
+      console.log("customerData: ", customerData);
+    });
 
-		const getUser = function (data: string) {
-			return axios.get(`${server.baseURL}/api/user_id`, {
-				params: data,
-			});
-		};
+    const submitToServer = function (data: newUser) {
+      axios.put(`${server.baseURL}/api/users/add/user`, data);
+    };
 
-		return {
-			submitToServer,
-			customerData,
-			nomField,
-			prenomField,
-			idField,
-			emailField,
-			passwordField,
-			confirmPasswordField,
-			submitForm,
-			formMeta,
-		};
-	},
+    const getUserId = function (data: string): any {
+      return axios.get(`${server.baseURL}/api/user_id`, {
+        params: data,
+      });
+    };
+
+    return {
+      submitToServer,
+      customerData,
+      nomField,
+      prenomField,
+      idField,
+      emailField,
+      passwordField,
+      confirmPasswordField,
+      submitForm,
+      formMeta,
+    };
+  },
 });
 </script>
 
