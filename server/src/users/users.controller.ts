@@ -1,7 +1,15 @@
-import { Controller, Request, Get, UseGuards, Put } from '@nestjs/common';
+import {
+  Controller,
+  Request,
+  Get,
+  UseGuards,
+  Put,
+  Param,
+} from '@nestjs/common';
 import { UsersService } from './users.service';
 import { LocalAuthGuard } from '../auth/local-auth.guard';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
+import { UserEntity } from './entity/user.entity';
 
 @Controller('users')
 export class UsersController {
@@ -13,13 +21,7 @@ export class UsersController {
     return this.usersService.findAll();
   }
 
-  @UseGuards(JwtAuthGuard)
-  @Get('find/user')
-  getOne(@Request() req) {
-    return this.usersService.getOne(req.user);
-  }
-
-  @Put('add/user')
+  @Put('users/add/user')
   async addUser(@Request() req) {
     console.log('req.body: ', req.body);
     await this.usersService.addOne(req.body);
@@ -29,5 +31,11 @@ export class UsersController {
   getTest(@Request() req) {
     console.log('calling authService in app.controller...');
     return this.usersService.findAll();
+  }
+
+  @Get('user_id')
+  async getUserID(@Request() req): Promise<UserEntity> {
+    console.log('calling usersService...');
+    return await this.usersService.getUser(req.params);
   }
 }
