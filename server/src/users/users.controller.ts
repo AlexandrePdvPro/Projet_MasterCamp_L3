@@ -34,8 +34,13 @@ export class UsersController {
   }
 
   @Get('user_id')
-  async getUserID(@Request() req): Promise<UserEntity> {
+  async getUserId(@Request() req): Promise<UserEntity> {
     console.log('calling usersService...');
     return await this.usersService.getUser(req.params);
+  }
+
+  @Get('user')
+  async getUser(@Request() req): Promise<UserEntity> {
+    return await this.usersService.findOne(req.params);
   }
 }
