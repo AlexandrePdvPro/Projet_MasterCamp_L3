@@ -16,11 +16,13 @@
 		"bulma": "^0.9.3",
 		"core-js": "^3.15.2",
 		"emailjs-com": "^3.1.0",
+		"ethereumjs-tx": "^2.1.2",
 		"node-sass": "^6.0.1",
 		"vee-validate": "^4.4.5",
 		"vue": "^3.1.2",
 		"vue-router": "^4.0.10",
 		"vuex": "^4.0.2",
+		"web3": "^1.4.0",
 		"yup": "^0.32.9"
 	},
 	"devDependencies": {
