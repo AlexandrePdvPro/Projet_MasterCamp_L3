@@ -2,12 +2,12 @@ import { createStore } from "vuex";
 
 export default createStore({
   state: {
-    isConnected: false,
+    isConnected: true,
   },
   mutations: {
-    setIsConnected(state, newVar){
+    setIsConnected(state, newVar) {
       state.isConnected = newVar;
-    }
+    },
   },
   actions: {},
   modules: {},
