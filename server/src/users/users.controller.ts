@@ -4,7 +4,7 @@ import {
   Get,
   UseGuards,
   Put,
-  Param,
+  Param, Query,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { LocalAuthGuard } from '../auth/local-auth.guard';
@@ -21,7 +21,7 @@ export class UsersController {
     return this.usersService.findAll();
   }
 
-  @Put('users/add/user')
+  @Put('add/user')
   async addUser(@Request() req) {
     console.log('req.body: ', req.body);
     await this.usersService.addOne(req.body);
@@ -33,13 +33,15 @@ export class UsersController {
     return this.usersService.findAll();
   }
 
-  @Get('user_id')
-  async getUserId(@Request() req): Promise<UserEntity> {
+  @Get('get/user_id')
+  async getUserId(@Query("email") mail,@Request() req): Promise<UserEntity> {
     console.log('calling usersService...');
-    return await this.usersService.getUser(req.params);
+    console.log('mail : ' , mail);
+    console.log('req : ' , req);
+    return await this.usersService.getUser(mail);
   }
 
-  @Get('user')
+  @Get('get/user')
   async getUser(@Request() req): Promise<UserEntity> {
     return await this.usersService.findOne(req.params);
   }

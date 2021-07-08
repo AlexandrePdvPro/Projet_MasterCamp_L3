@@ -7,27 +7,27 @@
           <div class="box">
             <form @submit.prevent="submitForm">
               <div class="field">
-                <label class="label">Email</label>
+                <label class="label">Identifiant unique</label>
                 <div class="control has-icons-left has-icons-right">
                   <input
                     class="input"
-                    type="email"
-                    placeholder="Adresse email"
-                    @input="emailField.handleChange"
-                    @blur="emailField.handleBlur"
-                    :value="emailField.value"
+                    type="text"
+                    placeholder="Identifiant"
+                    @input="idField.handleChange"
+                    @blur="idField.handleBlur"
+                    :value="idField.value"
                   />
                 </div>
                 <p
                   class="has-text-danger"
                   :style="{
                     visibility:
-                      emailField.meta.touched && !emailField.meta.valid
+                      idField.meta.touched && !idField.meta.valid
                         ? 'visible'
                         : 'hidden',
                   }"
                 >
-                  {{ emailField.errorMessage || "Ce champ est requis" }}
+                  {{ idField.errorMessage || "Ce champ est requis" }}
                 </p>
               </div>
 
@@ -90,7 +90,7 @@ import { server } from "../helper";
 import router from "../router";
 
 interface user {
-  email: string;
+  user_id: string;
   password: string;
 }
 
@@ -100,19 +100,20 @@ export default defineComponent({
     const store = useStore();
 
     const { meta: formMeta, handleSubmit } = useForm();
-    const emailField = reactive(useField("email", "email"));
+    const idField = reactive(useField("id", "user"));
     const passwordField = reactive(useField("password", "password"));
-    const customerData: user = reactive({ email: "", password: "" });
+    const customerData: user = reactive({ user_id: "", password: "" });
+
 
     const submitForm = handleSubmit((formValues: any) => {
-      customerData.email = formValues.email;
+      customerData.user_id = formValues.id;
       customerData.password = formValues.password;
       console.log("customerData: ", customerData);
       submitToServer(customerData);
-      const user = getUser(customerData.user_id);
+      console.log(getUser(customerData.user_id));
       store.commit("setIsConnected", true);
       router.push({ name: "Home" });
-      customerData.email = "";
+      customerData.user_id = "";
       customerData.password = "";
       console.log("customerData: ", customerData);
     });
@@ -122,15 +123,15 @@ export default defineComponent({
     };
 
     const getUser = function (user_id: string): any {
-      return axios.get(`${server.baseURL}/api/user`, {
+      return axios.get(`${server.baseURL}/api/users/get/user`, {
         params: user_id,
-      });
+      }).then((reponse) => reponse.data);
     };
 
     return {
       submitToServer,
       customerData,
-      emailField,
+      idField,
       passwordField,
       submitForm,
       formMeta,
