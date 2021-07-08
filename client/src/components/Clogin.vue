@@ -109,6 +109,7 @@ export default defineComponent({
       customerData.password = formValues.password;
       console.log("customerData: ", customerData);
       submitToServer(customerData);
+      const user = getUser(customerData.user_id);
       store.commit("setIsConnected", true);
       router.push({ name: "Home" });
       customerData.email = "";
@@ -118,6 +119,12 @@ export default defineComponent({
 
     const submitToServer = function (data: user) {
       axios.post(`${server.baseURL}/api/auth/login`, data);
+    };
+
+    const getUser = function (user_id: string): any {
+      return axios.get(`${server.baseURL}/api/user`, {
+        params: user_id,
+      });
     };
 
     return {

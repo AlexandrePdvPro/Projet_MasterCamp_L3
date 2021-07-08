@@ -232,7 +232,7 @@ export default defineComponent({
       customerData.password = formValues.password;
       console.log("customerData: ", customerData);
       submitToServer(customerData);
-      getUser(customerData.email);
+      getUserId(customerData.email);
       router.push({ name: "Home" });
       customerData.email = "";
       customerData.password = "";
@@ -246,7 +246,7 @@ export default defineComponent({
       axios.put(`${server.baseURL}/api/users/add/user`, data);
     };
 
-    const getUser = function (data: string) {
+    const getUserId = function (data: string): any {
       return axios.get(`${server.baseURL}/api/user_id`, {
         params: data,
       });
